@@ -29,7 +29,7 @@ function calculoIMC(peso, altura) {
         resultado = "Obesidad"
     }
 
-    return "Tu IMC es " + indice + ", lo que indica que tu peso est\u00E1 en la categor\u00EDa de " + resultado + " para adultos de tu misma estatura."
+    return `Tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
 }
 
 
