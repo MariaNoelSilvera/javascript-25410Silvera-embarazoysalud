@@ -9,12 +9,10 @@ while ((altura) < 0 || isNaN(altura)) {
     altura = prompt("Ingresa tu altura en metros");
 }
 
-alert(calculoIMC(peso, altura));
-
 
 function calculoIMC(peso, altura) {
-    var indice = (peso / (altura * altura)).toFixed(1)
-    var resultado = ""
+    let indice = (peso / (altura * altura)).toFixed(1)
+    let resultado = ""
 
     if (indice < 18.5) {
         resultado = "Bajo peso"
@@ -31,6 +29,10 @@ function calculoIMC(peso, altura) {
 
     return `Tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
 }
+
+alert(calculoIMC(peso, altura));
+
+
 
 
 
