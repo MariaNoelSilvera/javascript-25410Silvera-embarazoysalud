@@ -3,6 +3,7 @@
 <head>
     <title>CALCULADORA DE IMC</title>
     <link rel="stylesheet" href="stylesheet.css">
+    <script src=main.js></script>
 </head>
 
 <body onload="init()">
@@ -12,33 +13,22 @@
             Peso (<span id="imc-peso-unidad">KG</span>):
         </div>
         <div class="imc-row">
-            <input id="imc-peso" type="number" min="1" max="635" required />
+            <input id="peso" type="number" min="1" max="635" required />
         </div>
 
         <div class="imc-label">Altura (<span id="imc-altura-unidad">CM</span>):</div>
         <div class="bmi-row">
-            <input id="imc-altura" type="number" min="54" max="272" required />
+            <input id="altura" type="number" min="54" max="272" required />
         </div>
 
-        <input type="submit" value="Calcular IMC" />
+        <input id="calcularIMCInput" type="submit" value="Calcular IMC" />
         <span id="imc-results"></span>
     </form>
     <div>
-        <table>
-            <tr>
-                <th>Identificador</th>
-                <th>Indice de Masa Corporal</th>
-                <th>Resultado</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-        </table>
+        <div id="divListaIndices">
+        </div>
     </div>
 </body>
-<script language="javascript" src=25410Silvera.js></script>
+
 
 </html>
