@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>CALCULADORA DE IMC</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src=main.js></script>
+</head>
+
+<body onload="init()">
+    <h1>CALCULADORA DE IMC</h1>
+    <form id="imc-form" onsubmit="return calcularIndice();">
+        <div>
+            Peso (<span id="imc-peso-unidad">KG</span>):
+        </div>
+        <div>
+            <input id="peso" type="number" min="1" max="635" required />
+        </div>
+
+        <div>Altura (<span id="imc-altura-unidad">CM</span>):</div>
+        <div>
+            <input id="altura" type="number" min="54" max="272" required />
+        </div>
+
+        <div>Fecha (<span id="imc-fecha">dd/mm/aaaa</span>):</div>
+        <div>
+            <input id="fecha" type="date" required />
+        </div>
+        <button type="button" class="btn" id="calcularBtn">
+            Calcular IMC
+        </button>
+        <span id="imc-results"></span>
+    </form>
+    <div>
+        <div id="divListaIndices">
+        </div>
+    </div>
+</body>
+
+
+</html>
