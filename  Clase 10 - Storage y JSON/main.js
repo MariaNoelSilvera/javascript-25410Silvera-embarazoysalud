@@ -26,7 +26,6 @@ class IndiceMasaCorporal {
         return `Tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
     }
 }
-
 var listadoDeIMC = []
 
 function init() {
@@ -58,26 +57,21 @@ function cargarTablaIndices() {
                       <td>${indice.resultado}</td>
                       <td>${indice.fecha}</td>
                       <td>
-                        <button id="borrarIndiceBtn${indice.id}" class="btn btn-danger" >
+                        <button id="${indice.id}" class="btn btn-danger" >
                             Borrar
                         </button>
                     </td>`;
-        $(`#eliminar${indice.id}`).on("click", () => {
-            eliminarDelCarrito(alfajor.id);
-        });
         tbody.appendChild(tr)
+
     })
+
 
     table.appendChild(tbody)
     nodoIndices.appendChild(table)
-    crearAccionBorrar()
 }
 
 function crearAccionBorrar() {
-    const borrarBtn = document.querySelector("#borrarIndiceBtn3")
-    borrarBtn.addEventListener("click", () => {
-        alert("borrar")
-    })
+
 }
 
 function programarBotones() {
@@ -92,59 +86,68 @@ function crearAccionCalcular() {
 }
 
 function calcularIMC() {
-    const peso = document.querySelector("#peso").value
-    const altura = document.querySelector("#altura").value
-    const fecha = document.querySelector("#fecha").value
-    const alturaMts = altura / 100
+    let peso = document.querySelector("#peso").value
+    let altura = (document.querySelector("#altura").value)
+    let fecha = document.querySelector("#fecha").value
+    let alturaMts = altura / 100
+    let fechaActual = new Date()
+    let fechaFormateada = fecha.split("-")
+    let fechaIMC = new Date(fechaFormateada[0], fechaFormateada[1] - 1, fechaFormateada[2])
+    let fechaActualMils = fechaActual.getTime()
+    let fechaIMCMils = fechaIMC.getTime()
+    let nodoErrorFecha = document.getElementById("error-fecha")
+    let calculadora = new IndiceMasaCorporal(peso, alturaMts)
+    let id = listadoDeIMC.length + 1
+    let indice = (peso / (alturaMts * alturaMts)).toFixed(1)
+    let resultado = (calculadora.calcularResultado(indice))
+    let resultadoDesc = (calculadora.mostrarResultado(indice, resultado))
+    let nuevoIMC = {
+        id: id,
+        indice: indice,
+        resultado: resultado,
+        fecha: `${fechaFormateada[2]}/${fechaFormateada[1]}/${fechaFormateada[0]}`
+    }
 
     if (peso.trim() === "" || altura.trim() === "" || fecha.trim() === "") {
-        console.log("error")
+        return
     }
     else {
-        const today = new Date()
-        const fechaFormateada = fecha.split("-")
-        const fechaIMC = new Date(fechaFormateada[0], fechaFormateada[1] - 1, fechaFormateada[2])
-        const todayMils = today.getTime()
-        const fechaIMCMils = fechaIMC.getTime()
-        const nodoErrorFecha = document.getElementById("error-fecha")
-        const nodoResultado = document.getElementById("resultado-imc")
-        if (fechaIMCMils > todayMils) {
-            nodoErrorFecha.innerHTML = ""
-            const errorMessage = document.createElement("errorMessage")
-            errorMessage.setAttribute("id", "errorMessage")
-            errorMessage.innerHTML =
-                `<span id="error-fecha">(La fecha no puede ser mayor a hoy)</span>`
-            const ebody = document.createElement("ebody")
-            errorMessage.appendChild(ebody)
-            nodoErrorFecha.appendChild(errorMessage)
+        if (fechaIMCMils > fechaActualMils) {
+            mostrarMensajeDeErrorFecha()
         }
         else {
             nodoErrorFecha.innerHTML = ""
-            const calculadora = new IndiceMasaCorporal(peso, alturaMts)
-            const id = listadoDeIMC.length + 1
-            const indice = (peso / (alturaMts * alturaMts)).toFixed(1)
-            const resultado = (calculadora.calcularResultado(indice))
-            const resultadoDesc = (calculadora.mostrarResultado(indice, resultado))
-            const nuevoIMC = {
-                id: id,
-                indice: indice,
-                resultado: resultado,
-                fecha: `${fechaFormateada[2]}/${fechaFormateada[1]}/${fechaFormateada[0]}`
-            }
-
             listadoDeIMC.push(nuevoIMC)
-            nodoResultado.innerHTML = ""
-            const resultadoIMC = document.createElement("resultado-imc")
-            resultadoIMC.setAttribute("id", "resultado-imc")
-            resultadoIMC.innerHTML =
-                `<p> ${resultadoDesc} </p>`
-            const rbody = document.createElement("rbody")
-            resultadoIMC.appendChild(rbody)
-            nodoResultado.appendChild(resultadoIMC)
+            mostrarResultado(resultadoDesc)
             cargarTablaIndices()
             persistirDatos()
+            //borrarDatos()
         }
     }
+}
+
+function mostrarResultado(resultadoDesc) {
+    const nodoResultado = document.getElementById("resultado-imc")
+    nodoResultado.innerHTML = ""
+    const resultadoIMC = document.createElement("resultado-imc")
+    resultadoIMC.setAttribute("id", "resultado-imc")
+    resultadoIMC.innerHTML =
+        `<H5> RESULTADO: </H5>
+            <p> ${resultadoDesc} </p>`
+    const rbody = document.createElement("rbody")
+    resultadoIMC.appendChild(rbody)
+    nodoResultado.appendChild(resultadoIMC)
+}
+
+function mostrarMensajeDeErrorFecha() {
+    const nodoErrorFecha = document.getElementById("error-fecha")
+    const errorMessage = document.createElement("errorMessage")
+    errorMessage.setAttribute("id", "errorMessage")
+    errorMessage.innerHTML =
+        `<span id="error-fecha">(La fecha no puede ser mayor a hoy)</span>`
+    const ebody = document.createElement("ebody")
+    errorMessage.appendChild(ebody)
+    nodoErrorFecha.appendChild(errorMessage)
 }
 
 function persistirDatos() {
@@ -155,6 +158,10 @@ function precargarDatos() {
     if (localStorage.getItem("IMC") !== null) {
         listadoDeIMC = JSON.parse(localStorage.getItem("IMC"))
     }
+}
+
+function borrarDatos() {
+    localStorage.clear()
 }
 
 

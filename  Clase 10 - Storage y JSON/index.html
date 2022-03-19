@@ -41,7 +41,6 @@
             </div>
         </nav>
     </header>
-
     <div id="divCalculadoraIMC">
         <h1>CALCULADORA DE IMC</h1>
         <div>
@@ -52,7 +51,7 @@
             <p>Tu salud es una razón de peso, ¡te invitamos a calcular el tuyo!</p>
         </div>
         <h5>Completa los siguientes campos</h5>
-        <form id="imc-form">
+        <form id="imc-form" onsubmit="return calcularIMC();">
             <div id="genero">
                 <div>¿Cuál es tu género?</div>
                 <div class="form-check">
@@ -68,6 +67,7 @@
                     </label>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -81,7 +81,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>¿Cuánto mides?:</label>
-                        <input class="form-control" id="altura" type="number" placeholder="cms" />
+                        <input class="form-control" id="altura" type="number" placeholder="cms" required />
                     </div>
                 </div>
             </div>
@@ -102,16 +102,12 @@
             </div>
         </form>
         <div id="resultado-imc">
-
         </div>
         <div>
             <div id="divListaIndices">
             </div>
         </div>
     </div>
-
-
 </body>
-
 
 </html>
