@@ -20,6 +20,10 @@
     padding-top: 20px;
   }
 
+  #genero {
+    padding-left: 10px;
+  }
+
  #divCalculadoraIMC {
    padding: 20px
  }

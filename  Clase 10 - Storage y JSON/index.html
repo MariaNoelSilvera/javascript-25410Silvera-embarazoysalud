@@ -53,25 +53,27 @@
         </div>
         <h5>Completa los siguientes campos</h5>
         <form id="imc-form">
-            <div>¿Cuál es tu género?</div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                <label class="form-check-label" for="flexRadioDefault1">
-                    Mujer
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                <label class="form-check-label" for="flexRadioDefault2">
-                    Hombre
-                </label>
+            <div id="genero">
+                <div>¿Cuál es tu género?</div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Mujer
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Hombre
+                    </label>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>¿Cuánto pesas?:</label>
-                        <input class="form-control" id="peso" name="peso" type="number" min="1" max="635"
-                            placeholder="kgs" required />
+                        <input class="form-control" id="peso" type="number" min="1" max="635" placeholder="kgs"
+                            required />
                     </div>
                 </div>
             </div>
@@ -79,14 +81,14 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label>¿Cuánto mides?:</label>
-                        <input class="form-control" id="altura" name="altura" type="number" placeholder="cms" />
+                        <input class="form-control" id="altura" type="number" placeholder="cms" />
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="nombre">Ingresa la fecha:</label>
+                        <label for="nombre">Fecha:</label>
                         <input class="form-control" id="fecha" type="date" required />
                     </div>
                 </div>
@@ -94,7 +96,7 @@
             <div id="error-fecha">
             </div>
             <div id="btnCalcularIMC">
-                <button type="submit" class="btn btn-info btn-lg" id="calcularBtn">
+                <button type="button" class="btn btn-info btn-lg" id="calcularBtn">
                     Calcular IMC
                 </button>
             </div>

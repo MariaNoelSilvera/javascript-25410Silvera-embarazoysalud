@@ -58,10 +58,13 @@ function cargarTablaIndices() {
                       <td>${indice.resultado}</td>
                       <td>${indice.fecha}</td>
                       <td>
-                        <button id="borrarIndiceBtn" class="btn btn-danger" >
+                        <button id="borrarIndiceBtn${indice.id}" class="btn btn-danger" >
                             Borrar
                         </button>
                     </td>`;
+        $(`#eliminar${indice.id}`).on("click", () => {
+            eliminarDelCarrito(alfajor.id);
+        });
         tbody.appendChild(tr)
     })
 
@@ -71,7 +74,7 @@ function cargarTablaIndices() {
 }
 
 function crearAccionBorrar() {
-    const borrarBtn = document.querySelector("#borrarIndiceBtn")
+    const borrarBtn = document.querySelector("#borrarIndiceBtn3")
     borrarBtn.addEventListener("click", () => {
         alert("borrar")
     })
@@ -95,7 +98,7 @@ function calcularIMC() {
     const alturaMts = altura / 100
 
     if (peso.trim() === "" || altura.trim() === "" || fecha.trim() === "") {
-        return
+        console.log("error")
     }
     else {
         const today = new Date()
@@ -103,20 +106,20 @@ function calcularIMC() {
         const fechaIMC = new Date(fechaFormateada[0], fechaFormateada[1] - 1, fechaFormateada[2])
         const todayMils = today.getTime()
         const fechaIMCMils = fechaIMC.getTime()
-        const nodoFecha = document.getElementById("error-fecha")
+        const nodoErrorFecha = document.getElementById("error-fecha")
         const nodoResultado = document.getElementById("resultado-imc")
         if (fechaIMCMils > todayMils) {
-            nodoFecha.innerHTML = ""
+            nodoErrorFecha.innerHTML = ""
             const errorMessage = document.createElement("errorMessage")
             errorMessage.setAttribute("id", "errorMessage")
             errorMessage.innerHTML =
                 `<span id="error-fecha">(La fecha no puede ser mayor a hoy)</span>`
             const ebody = document.createElement("ebody")
             errorMessage.appendChild(ebody)
-            nodoFecha.appendChild(errorMessage)
+            nodoErrorFecha.appendChild(errorMessage)
         }
         else {
-            nodoFecha.innerHTML = ""
+            nodoErrorFecha.innerHTML = ""
             const calculadora = new IndiceMasaCorporal(peso, alturaMts)
             const id = listadoDeIMC.length + 1
             const indice = (peso / (alturaMts * alturaMts)).toFixed(1)
@@ -144,10 +147,6 @@ function calcularIMC() {
     }
 }
 
-function borrarIndice(id) {
-    const indice = listadoDeIMC.find(element => element.id === id)
-}
-
 function persistirDatos() {
     localStorage.setItem("IMC", JSON.stringify(listadoDeIMC, null, 4))
 }
@@ -157,7 +156,6 @@ function precargarDatos() {
         listadoDeIMC = JSON.parse(localStorage.getItem("IMC"))
     }
 }
-
 
 
 
