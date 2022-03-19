@@ -6,6 +6,7 @@ class IndiceMasaCorporal {
 
     calcularResultado(indice) {
         let resultado = ""
+
         if (indice < 18.5) {
             resultado = "Bajo peso"
         }

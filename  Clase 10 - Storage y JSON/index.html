@@ -66,29 +66,33 @@
                     Hombre
                 </label>
             </div>
-
-            <div>
-                ¿Cuánto pesas?
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>¿Cuánto pesas?:</label>
+                        <input class="form-control" id="peso" name="peso" type="number" min="1" max="635"
+                            placeholder="kgs" required />
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <input class="form-control" id="peso" type="number" min="1" max="635" required />
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>¿Cuánto mides?:</label>
+                        <input class="form-control" id="altura" name="altura" type="number" placeholder="cms" />
+                    </div>
+                </div>
             </div>
-
-            <div>¿Cuánto mides?</div>
-            <div>
-                <input class="form-control" id="altura" type="number" min="54" max="272" required />
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="nombre">Ingresa la fecha:</label>
+                        <input class="form-control" id="fecha" type="date" required />
+                    </div>
+                </div>
             </div>
-
-            <div id="imc-fecha">Ingresa la fecha de la medición: </div>
             <div id="error-fecha">
-
             </div>
-
-            <div>
-                <input id="fecha" type="date" required />
-            </div>
-
             <div id="btnCalcularIMC">
                 <button type="submit" class="btn btn-info btn-lg" id="calcularBtn">
                     Calcular IMC
