@@ -50,7 +50,6 @@ function crearAccionCalcular() {
 }
 
 function calcularIMC() {
-    console.log(listadoDeIMC)
     let peso = document.querySelector("#peso").value
     let altura = (document.querySelector("#altura").value)
     let fecha = document.querySelector("#fecha").value
@@ -154,15 +153,20 @@ function cargarTablaIndices() {
         let boton = document.getElementById(`btnBorrar${indice.id}`)
         boton.onclick = () => borrarIndice(indice.id)
     }
+    console.log("AGREGAR TABLA")
+    console.log(listadoDeIMC)
 }
 
 function borrarIndice(id) {
     let listadoDeIndices = JSON.parse(localStorage.getItem("ArrayDeIndices"))
     let indiceAEliminar = listadoDeIndices.findIndex(element => element.id === id)
     listadoDeIndices.splice(indiceAEliminar, 1)
+    listadoDeIMC.splice(indiceAEliminar, 1)
     localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIndices))
     let lineaIMC = document.getElementById(`fila${id}`)
     lineaIMC.remove()
+    console.log("LISTADODEIMC")
+    console.log(listadoDeIMC)
 }
 
 function persistirDatos() {
