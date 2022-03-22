@@ -23,8 +23,8 @@ class IndiceMasaCorporal {
         return resultado
     }
 
-    mostrarResultado(indice, resultado) {
-        return `Tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
+    mostrarResultado(nombre, indice, resultado) {
+        return `${nombre}, tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
     }
 }
 //Constantes y variables
@@ -53,6 +53,7 @@ function calcularIMC() {
     let peso = document.querySelector("#peso").value
     let altura = (document.querySelector("#altura").value)
     let fecha = document.querySelector("#fecha").value
+    let nombre = document.querySelector("#nombre").value
     let alturaMts = altura / 100
     let fechaActual = new Date()
     let fechaFormateada = fecha.split("-")
@@ -62,18 +63,20 @@ function calcularIMC() {
     let nodoError = document.getElementById("mensaje-error")
     let calculadora = new IndiceMasaCorporal(peso, alturaMts)
     let ultimoIndice = listadoDeIMC[listadoDeIMC.length - 1]
+    //operador ternario
     const id = ultimoIndice !== undefined ? ultimoIndice.id + 1 : 0
     let indice = (peso / (alturaMts * alturaMts)).toFixed(1)
     let resultado = (calculadora.calcularResultado(indice))
-    let resultadoDesc = (calculadora.mostrarResultado(indice, resultado))
+    let resultadoDesc = (calculadora.mostrarResultado(nombre, indice, resultado))
     let nuevoIMC = {
         id: id,
+        nombre: nombre,
         indice: indice,
         resultado: resultado,
         fecha: `${fechaFormateada[2]}/${fechaFormateada[1]}/${fechaFormateada[0]}`
     }
 
-    if (peso.trim() === "" || altura.trim() === "" || fecha.trim() === "") {
+    if (peso.trim() === "" || altura.trim() === "" || fecha.trim() === "" || nombre.trim() === "") {
         nodoError.innerHTML = ""
         mostrarError("empty")
     }
@@ -109,7 +112,7 @@ function mostrarError(tipo) {
     const nodoError = document.getElementById("mensaje-error")
     const errorMessage = document.createElement("errorMessage")
     errorMessage.setAttribute("id", "errorMessage")
-
+    //operador ternario
     tipo === "empty" ? errorMessage.innerHTML =
         `<span id="error">Error! Debes completar todos los campos</span>` : errorMessage.innerHTML =
     `<span id="error-fecha">Error! La fecha no puede ser mayor a hoy</span>`
@@ -127,6 +130,7 @@ function cargarTablaIndices() {
     table.innerHTML =
         `<tr>
               <th>Identificador</th>
+              <th>Nombre</th>
               <th>Indice de Masa Corporal</th>
               <th>Resultado</th>
               <th>Fecha</th>
@@ -136,6 +140,7 @@ function cargarTablaIndices() {
     for (const indice of listadoDeIMC) {
         const tr = document.createElement("tr")
         tr.innerHTML = `<td>${indice.id}</td>
+                        <td>${indice.nombre}</td>
                       <td>${indice.indice}</td>
                       <td>${indice.resultado}</td>
                       <td>${indice.fecha}</td>
@@ -153,8 +158,8 @@ function cargarTablaIndices() {
         let boton = document.getElementById(`btnBorrar${indice.id}`)
         boton.onclick = () => borrarIndice(indice.id)
     }
-    console.log("AGREGAR TABLA")
-    console.log(listadoDeIMC)
+    destructuring()
+    spread()
 }
 
 function borrarIndice(id) {
@@ -165,12 +170,30 @@ function borrarIndice(id) {
     localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIndices))
     let lineaIMC = document.getElementById(`fila${id}`)
     lineaIMC.remove()
-    console.log("LISTADODEIMC")
-    console.log(listadoDeIMC)
 }
 
 function persistirDatos() {
     localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIMC))
+}
+
+//destructuring y alias
+function destructuring() {
+    for (const indice of listadoDeIMC) {
+        const { nombre: nombrePaciente, resultado: resultadoPaciente, fecha: fechaMedicion } = indice
+        console.log(`El resultado de ${nombrePaciente} en la fecha ${fechaMedicion} es ${resultadoPaciente}`)
+    }
+}
+
+//spread
+function spread() {
+    let listadoSoloIndices = [];
+    listadoDeIMC.map((item) => {
+        listadoSoloIndices.push(item.indice);
+        return item;
+    });
+
+    let maximo = (Math.max(...listadoSoloIndices))
+    console.log(`El mayor indice es  ${maximo}`)
 }
 
 
