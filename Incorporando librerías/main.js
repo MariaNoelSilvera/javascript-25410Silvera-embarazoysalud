@@ -211,23 +211,7 @@ function sweetAlertPesoNormal(resultado, nombre) {
     }
 }
 
-function agregarAccionConToastify() {
 
-    const nodo = document.querySelector("#btn");
-    nodo.addEventListener("click", () => {
-        Toastify({
-            text: "ESTO ES UN SALUDO",
-            duration: 3000,
-            gravity: 'top',
-            position: 'right'
-
-        }).showToast();
-    })
-
-
-
-
-}
 
 
 
