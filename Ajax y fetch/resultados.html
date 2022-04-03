@@ -1,0 +1,26 @@
+<div id="resultados"></div>
+<script>
+
+    let url = './data/indices.json'
+
+    fetch(url).
+        then((res) => res.json()).
+        then((json) => {
+            mostrarInfo(json);
+        });
+
+    function mostrarInfo(data) {
+        const nodo = document.querySelector("#resultados");
+
+        data.forEach((element) => {
+            let li = document.createElement("li");
+            li.innerHTML = `id: ${element.id}
+                          nombre: ${element.nombre}
+                          indice: ${element.indice}
+                          resultado: ${element.resultado}
+                          fecha: ${element.resultado}`;
+            nodo.appendChild(li);
+        })
+    }
+
+</script>
