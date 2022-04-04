@@ -58,10 +58,10 @@ form.addEventListener('submit', e => {
 
 // Mostrar letra al hacer click en el botón
 result.addEventListener('click', e => {
-    const clickedEl = e.target;
-    if (clickedEl.tagName === 'BUTTON') {
-        const artist = clickedEl.getAttribute('data-artist');
-        const songTitle = clickedEl.getAttribute('data-songtitle');
+    const document = e.target;
+    if (document.tagName === 'BUTTON') {
+        const artist = document.getAttribute('data-artist');
+        const songTitle = document.getAttribute('data-songtitle');
         verLetra(artist, songTitle);
     }
 });
