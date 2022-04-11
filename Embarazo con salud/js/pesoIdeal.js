@@ -126,7 +126,6 @@ function cargarTablaIndices() {
     table.setAttribute("id", "listaIndices")
     table.innerHTML =
         `<tr>
-              <th>Id.</th>
               <th>Nombre</th>
               <th>Peso Antes</th>
               <th>Peso Actual</th>
@@ -140,8 +139,7 @@ function cargarTablaIndices() {
     const tbody = document.createElement("tbody")
     for (const indice of listadoDeIMC) {
         const tr = document.createElement("tr")
-        tr.innerHTML = `<td>${indice.id}</td>
-                        <td>${indice.nombre}</td>
+        tr.innerHTML = `<td>${indice.nombre}</td>
                         <td>${indice.pesoAntes} kg</td>
                         <td>${indice.pesoActual} kg</td>
                         <td>${indice.semana}</td>
