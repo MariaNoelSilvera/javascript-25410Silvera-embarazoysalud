@@ -1,77 +1,78 @@
 //Constructor de clase
-class IndiceMasaCorporal {
-    constructor(peso, altura) {
-        this.peso = peso
-        this.altura = altura
+class ValorGlicemia {
+    constructor(valor) {
+        this.valor = valor
     }
 
-    calcularResultado(indice) {
+    calcularGlicemia(valor) {
         let resultado = ""
 
-        if (indice < 18.5) {
-            resultado = "Bajo peso"
+        if (valor >= 70 && valor <= 93) {
+            resultado = "Normal en ayunas"
         }
-        else if (indice >= 18.5 && indice < 24.9) {
-            resultado = "Peso normal"
+        else if (valor > 93 && valor <= 140) {
+            resultado = "Normal post comida"
         }
-        else if (indice >= 25 && indice < 29.9) {
-            resultado = "Sobrepeso"
+        else if (valor < 70) {
+            resultado = "Hipoglucemia"
         }
-        else {
-            resultado = "Obesidad"
+        else if (valor > 140) {
+            resultado = "Hiperglucemia"
         }
         return resultado
     }
 
-    mostrarResultado(nombre, indice, resultado) {
-        return `${nombre}, tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
+    mostrarResultado(nombre, valor, resultado) {
+        return `${nombre}, tu valor es ${valor}, lo que indica que tu nivel de glucosa en sangre es ${resultado}.`
     }
 }
 //Constantes y variables
-let listadoDeIMC = []
+let listadoDeValores = []
 
 //Funciones
 function init() {
     precargarDatos()
-    crearAccionCalcular()
+    crearAccionRegistrar()
+
 }
 
 function precargarDatos() {
-    if (localStorage.getItem("ArrayDeIndices") !== null) {
-        listadoDeIMC = JSON.parse(localStorage.getItem("ArrayDeIndices"))
+    if (localStorage.getItem("ArrayDeValores") !== null) {
+        listadoDeValores = JSON.parse(localStorage.getItem("ArrayDeValores"))
     }
 }
 
-function crearAccionCalcular() {
-    const calcularBtn = document.querySelector("#calcularBtn")
+function crearAccionRegistrar() {
+    const btnAgregarRegistro = document.querySelector("#btnAgregarRegistro")
     calcularBtn.addEventListener("click", () => {
-        calcularIMC()
+        registrarValor()
     })
 }
 
-function calcularIMC() {
-    let peso = document.querySelector("#peso").value
-    let altura = (document.querySelector("#altura").value)
-    let fecha = document.querySelector("#fecha").value
+function registrarValor() {
     let nombre = document.querySelector("#nombre").value
-    let alturaMts = altura / 100
+    let fecha = document.querySelector("#fecha").value
+    let glicemiaDesayunoAntes = document.querySelector("#glicemiaDesayunoAntes").value
+    let glicemiaDesayunoDespues = document.querySelector("#glicemiaDesayunoDespues").value
+    let glicemiaAlmuerzoAntes = document.querySelector("#glicemiaAlmuerzoAntes").value
+    let glicemiaAlmuerzoDespues = document.querySelector("#glicemiaAlmuerzoDespues").value
+    let glicemiaMeriendaAntes = document.querySelector("#glicemiaMeriendaAntes").value
+    let glicemiaMeriendaDespues = document.querySelector("#glicemiaMeriendaDespues").value
+    let glicemiaCenaAntes = document.querySelector("#glicemiaCenaAntes").value
+    let glicemiaCenaDespues = document.querySelector("#glicemiaCenaDespues").value
+
     let fechaActual = new Date()
     let fechaFormateada = fecha.split("-")
     let fechaIMC = new Date(fechaFormateada[0], fechaFormateada[1] - 1, fechaFormateada[2])
     let fechaActualMils = fechaActual.getTime()
     let fechaIMCMils = fechaIMC.getTime()
     let nodoError = document.getElementById("mensaje-error")
-    let calculadora = new IndiceMasaCorporal(peso, alturaMts)
-    let ultimoIndice = listadoDeIMC[listadoDeIMC.length - 1]
-    //operador ternario
-    const id = ultimoIndice !== undefined ? ultimoIndice.id + 1 : 0
-    let indice = (peso / (alturaMts * alturaMts)).toFixed(1)
+    let calculadora = new ValorGlicemia()
     let resultado = (calculadora.calcularResultado(indice))
-    let resultadoDesc = (calculadora.mostrarResultado(nombre, indice, resultado))
-    let nuevoIMC = {
-        id: id,
+    let resultadoDesc = (calculadora.mostrarResultado(nombre, resultado))
+    let nuevoValor = {
         nombre: nombre,
-        indice: indice,
+        valor: valor,
         resultado: resultado,
         fecha: `${fechaFormateada[2]}/${fechaFormateada[1]}/${fechaFormateada[0]}`
     }
@@ -87,8 +88,9 @@ function calcularIMC() {
         }
         else {
             nodoError.innerHTML = ""
-            listadoDeIMC.push(nuevoIMC)
+            listadoDeValores.push(nuevoValor)
             mostrarResultado(resultadoDesc)
+          //  sweetAlertPesoNormal(resultado, nombre)
             cargarTablaIndices()
             persistirDatos()
         }
@@ -106,6 +108,7 @@ function mostrarResultado(resultadoDesc) {
     const rbody = document.createElement("rbody")
     resultadoIMC.appendChild(rbody)
     nodoResultado.appendChild(resultadoIMC)
+
 }
 
 function mostrarError(tipo) {
@@ -126,26 +129,24 @@ function cargarTablaIndices() {
     const nodoIndices = document.getElementById("divListaIndices")
     nodoIndices.innerHTML = ""
     const table = document.createElement("table")
-    table.setAttribute("id", "listaIndices")
+    table.setAttribute("id", "listaRegistros")
     table.innerHTML =
         `<tr>
-              <th>Identificador</th>
               <th>Nombre</th>
-              <th>Indice de Masa Corporal</th>
+              <th>Valor</th>
               <th>Resultado</th>
               <th>Fecha</th>
               <th>Acciones</th>
             </tr>`
     const tbody = document.createElement("tbody")
-    for (const indice of listadoDeIMC) {
+    for (const registro of listadoDeIMC) {
         const tr = document.createElement("tr")
-        tr.innerHTML = `<td>${indice.id}</td>
-                        <td>${indice.nombre}</td>
-                      <td>${indice.indice}</td>
-                      <td>${indice.resultado}</td>
-                      <td>${indice.fecha}</td>
+        tr.innerHTML = `<td>${registro.nombre}</td>
+                      <td>${registro.valor}</td>
+                      <td>${registro.resultado}</td>
+                      <td>${registro.fecha}</td>
                       <td>
-                        <button id="btnBorrar${indice.id}" class="btn btn-danger" >
+                        <button id="btnBorrar${registro.id}" class="btn btn-danger" >
                             Borrar
                         </button>
                     </td>`;
@@ -158,8 +159,20 @@ function cargarTablaIndices() {
         let boton = document.getElementById(`btnBorrar${indice.id}`)
         boton.onclick = () => borrarIndice(indice.id)
     }
-    destructuring()
-    spread()
+    for (const indice of listadoDeIMC) {
+        let boton = document.getElementById(`btnBorrar${indice.id}`)
+        boton.addEventListener("click", () => {
+            Toastify({
+                text: "Registro eliminado ",
+                duration: 3000,
+                gravity: 'top',
+                position: 'right',
+                style: {
+                    background: 'red'
+                }
+            }).showToast();
+        })
+    }
 }
 
 function borrarIndice(id) {
@@ -176,32 +189,25 @@ function persistirDatos() {
     localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIMC))
 }
 
-//destructuring y alias
-function destructuring() {
-    for (const indice of listadoDeIMC) {
-        const { nombre: nombrePaciente, resultado: resultadoPaciente, fecha: fechaMedicion } = indice
-        console.log(`El resultado de ${nombrePaciente} en la fecha ${fechaMedicion} es ${resultadoPaciente}`)
+function sweetAlertPesoNormal(resultado, nombre) {
+
+    if (resultado === "Peso normal") {
+        Swal.fire({
+            title: `¡Sigue así, ${nombre}!`,
+            text: `Tu peso está en la categoría de ${resultado} para adultos de tu misma estatura.`,
+            icon: "success",
+            confirmButtonText: 'CERRAR'
+        })
+    }
+    else {
+        Swal.fire({
+            title: `¡Ten cuidado, ${nombre}!`,
+            text: `Tu peso está en la categoría de ${resultado} para adultos de tu misma estatura. Consulta a tu médico.`,
+            icon: "warning",
+            confirmButtonText: 'CERRAR'
+        })
     }
 }
-
-//spread
-function spread() {
-    let listadoSoloIndices = [];
-    listadoDeIMC.map((item) => {
-        listadoSoloIndices.push(item.indice);
-        return item;
-    });
-
-    let maximo = (Math.max(...listadoSoloIndices))
-    console.log(`El mayor indice es  ${maximo}`)
-}
-
-
-
-
-
-
-
 
 
 

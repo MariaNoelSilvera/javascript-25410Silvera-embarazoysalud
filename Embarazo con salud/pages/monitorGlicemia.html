@@ -1,0 +1,170 @@
+<html>
+
+<head>
+    <title>MONITOR DE GLICEMIA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/monitor.js" defer></script>
+
+</head>
+
+<body onload="init()">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">EMBARAZO & SALUD</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarsExample03">
+                    <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./monitorGlicemia.html">Monitor de glicemia</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./imcCalc.html">Calculadora de IMC</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pesoIdealCalc.html">Calculadora de Peso ideal</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="divMonitorGlicemia">
+        <h1>MONITOR DE GLICEMIA</h1>
+        <div>
+            <p> Para tener la diabetes gestacional bajo control, mantenerte sana y prevenir problemas para ti y tu bebé,
+                debes mantener
+                tus concentraciones de azúcar en sangre dentro de unos márgenes saludables.
+            </p>
+            <p>Para lograrlo, debes medir y
+                registrar tu concentración de azúcar en sangre con regularidad.</p>
+        </div>
+        <h5>Completa los siguientes campos</h5>
+        <form id="glicemia-form" onsubmit="return agregarRegistro();">
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>¿Cuál es tu nombre?:</label>
+                        <input class="form-control" id="nombre" type="text" required />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="nombre">Fecha:</label>
+                        <input class="form-control" id="fecha" type="date" required />
+                    </div>
+                </div>
+            </div>
+            <div>Desayuno
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Ingresa valor de glicemia antes del desayuno:</label>
+                            <input class="form-control" id="glicemiaDesayunoAntes" type="number" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Ingresa valor de glicemia después del desayuno:</label>
+                            <input class="form-control" id="glicemiaDesayunoDespues" type="number" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>Almuerzo
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Ingresa valor de glicemia antes del almuerzo:</label>
+                            <input class="form-control" id="glicemiaAlmuerzoAntes" type="number" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Ingresa valor de glicemia después del almuerzo:</label>
+                            <input class="form-control" id="glicemiaAlmuerzoDespues" type="number" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>Merienda
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Ingresa valor de glicemia antes de la merienda:</label>
+                            <input class="form-control" id="glicemiaMeriendaAntes" type="number" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Ingresa valor de glicemia después de la merienda:</label>
+                            <input class="form-control" id="glicemiaMeriendaDespues" type="number" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>Cena
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Ingresa valor de glicemia antes de la cena:</label>
+                            <input class="form-control" id="glicemiaCenaAntes" type="number" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Ingresa valor de glicemia después de la cena:</label>
+                            <input class="form-control" id="glicemiaCenaDespues" type="number" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mensaje-error">
+            </div>
+            <div id="btnAgregarRegistro">
+                <button type="button" class="btn btn-info btn-lg" id="btnAgregarRegistro">
+                    Agregar registro
+                </button>
+            </div>
+        </form>
+        <div id="btnAgregarRegistro">
+        </div>
+        <div>
+            <div id="divRegistrosGlicemia">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
