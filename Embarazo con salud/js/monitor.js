@@ -47,14 +47,14 @@ function registrarValor() {
     let nuevoValor = {
         nombre: nombre,
         fecha: `${fechaFormateada[2]}/${fechaFormateada[1]}/${fechaFormateada[0]}`,
-        desayunoAntes: glicemiaDesayunoAntes,
-        desayunoDespues: glicemiaDesayunoDespues,
-        almuerzoAntes: glicemiaAlmuerzoAntes,
-        almuerzoDespues: glicemiaAlmuerzoDespues,
-        meriendaAntes: glicemiaMeriendaAntes,
-        meriendaDespues: glicemiaMeriendaDespues,
-        cenaAntes: glicemiaCenaAntes,
-        cenaDespues: glicemiaCenaDespues
+        desayunoAntes: `${glicemiaDesayunoAntes} mg/dl`,
+        desayunoDespues: `${glicemiaDesayunoDespues} mg/dl`,
+        almuerzoAntes: `${glicemiaAlmuerzoAntes} mg/dl`,
+        almuerzoDespues: `${glicemiaAlmuerzoDespues} mg/dl`,
+        meriendaAntes: `${glicemiaMeriendaAntes} mg/dl`,
+        meriendaDespues: `${glicemiaMeriendaDespues} mg/dl`,
+        cenaAntes: `${glicemiaCenaAntes} mg/dl`,
+        cenaDespues: `${glicemiaCenaDespues} mg/dl`
     }
 
     if (fecha.trim() === "" || nombre.trim() === "") {
@@ -112,14 +112,14 @@ function cargarTablaResultadosGlicemia() {
         const tr = document.createElement("tr")
         tr.innerHTML = `<td>${registro.nombre}</td>
                       <td>${registro.fecha}</td>
-                      <td>${registro.desayunoAntes} mg/dl</td>
-                      <td>${registro.desayunoDespues} mg/dl</td>
-                      <td>${registro.almuerzoAntes} mg/dl</td>
-                      <td>${registro.almuerzoDespues} mg/dl</td>
-                      <td>${registro.meriendaAntes} mg/dl</td>
-                      <td>${registro.meriendaDespues} mg/dl</td>
-                      <td>${registro.cenaAntes} mg/dl</td>
-                      <td>${registro.cenaDespues} mg/dl</td>
+                      <td>${registro.desayunoAntes}</td>
+                      <td>${registro.desayunoDespues}</td>
+                      <td>${registro.almuerzoAntes}</td>
+                      <td>${registro.almuerzoDespues}</td>
+                      <td>${registro.meriendaAntes}</td>
+                      <td>${registro.meriendaDespues}</td>
+                      <td>${registro.cenaAntes}</td>
+                      <td>${registro.cenaDespues}</td>
                       <td>
                         <button id="btnBorrar${registro.id}" class="btn btn-danger" >
                             Borrar
