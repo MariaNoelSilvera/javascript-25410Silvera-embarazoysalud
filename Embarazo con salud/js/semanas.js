@@ -1,12 +1,11 @@
 function fechaEsValida(fecha) {
-
     var fechaPat = /^(\d{1,2})(\/|-)(\d{1,2})\2(\d{4})$/
     var matchArray = fecha.match(fechaPat)
 
     if (matchArray == null) {
         error = "Formato de fecha inválido"
         mostrarMensajeError(error)
-        return false;
+        return false
     }
     mes = matchArray[1]
     dia = matchArray[3]
@@ -16,24 +15,24 @@ function fechaEsValida(fecha) {
 
         error = "El mes debe ser entre 1 y 12."
         mostrarMensajeError(error)
-        return false;
+        return false
     }
     if (dia < 1 || dia > 31) {
         error = "El día debe ser entre 1 y 31."
         mostrarMensajeError(error)
-        return false;
+        return false
     }
     if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31) {
         error = `El mes ${mes} no tiene 31 días!.`
         mostrarMensajeError(error)
-        return false;
+        return false
     }
     if (mes == 2) {
-        var isleap = (año % 4 == 0 && (año % 100 != 0 || año % 400 == 0));
+        var isleap = (año % 4 == 0 && (año % 100 != 0 || año % 400 == 0))
         if (dia > 29 || (dia == 29 && !isleap)) {
             error = `Febrero ${año} no tiene ${dia} días.`
             mostrarMensajeError(error)
-            return false;
+            return false
         }
     }
     return true
@@ -53,8 +52,6 @@ function calculadoraEmbarazo(form) {
     ovulacion = new Date()
     fechaParto = new Date()
     hoy = new Date()
-    ciclo = 0
-    lutea = 0
 
     if (fechaEsValida(form.fum.value)) {
         fumIngresada = new Date(form.fum.value)
@@ -62,9 +59,7 @@ function calculadoraEmbarazo(form) {
         document.getElementById("mensaje-error").innerHTML = ""
     } else return false
 
-    ciclo = (form.ciclo.value == "" ? 28 : form.ciclo.value)
-    lutea = (form.lutea.value == "" ? 14 : form.lutea.value)
-    ovulacion.setTime(fum.getTime() + (ciclo * 86400000) - (lutea * 86400000))
+    ovulacion.setTime(fum.getTime() + (28 * 86400000) - (14 * 86400000))
     form.concepcion.value = mostrarFecha(ovulacion)
 
     fechaParto.setTime(ovulacion.getTime() + 266 * 86400000)

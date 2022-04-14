@@ -56,7 +56,7 @@
     <div id="divCalculadoraIMC">
         <h1>CALCULADORA DE EMBARAZO</h1>
         <div>
-            <p>¿Quieres saber tu fecha de parto? ¿Y la fecha de concepción? ¿Dudas de cuántas semanas estás embarazada?
+            <p>¿Quieres saber de cuántas semanas estás embarazada y tu fecha de parto?
             </p>
 
             <p>Saber en qué semana del embarazo te encuentras y tu fecha probable de parto no siempre es fácil,
@@ -66,11 +66,10 @@
                 tengas
                 un control total sobre tu embarazo.</p>
 
-            <p>Es muy fácil: introduce la fecha en que empezó tu última regla (FUR), el promedio de tu ciclo y de tu
-                fase lútea y descubrirás cuándo saldrás de
-                cuentas, en qué semana y día de embarazo estás.</p>
+            <p>Es muy fácil: introduce la fecha en que empezó tu última menstruación (FUM) y descubrirás cuándo tendrás
+                a tu bebé y en qué semana y día de embarazo estás.</p>
         </div>
-        <h5>Completa los siguientes campos</h5>
+        <h5>Completa el siguiente campo</h5>
         <form onSubmit="return calculadoraEmbarazo(this);">
             <div class="row">
                 <div>
@@ -80,25 +79,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div>
-                    <div class="form-group">
-                        <label>Duración promedio de tu ciclo:</label>
-                        <input type=text name=ciclo value="" size=4 maxlength=3> (Por defecto 28)
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div>
-                    <div class="form-group">
-                        <label>Duración promedio de tu fase lútea:</label>
-                        <input type=text name=lutea value="" size=4 maxlength=3> (Por defecto
-                        14)
-                    </div>
-                </div>
-            </div>
-
             <div>
                 <input type=submit class="btn btn-info btn-lg" value="Calcular">
             </div>
