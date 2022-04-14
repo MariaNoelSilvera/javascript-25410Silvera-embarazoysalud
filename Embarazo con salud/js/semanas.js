@@ -6,8 +6,6 @@ function fechaEsValida(fecha) {
     if (matchArray == null) {
         error = "Formato de fecha inválido"
         mostrarMensajeError(error)
-        //nodoError.innerHTML = ""
-
         return false;
     }
     mes = matchArray[1]
@@ -38,7 +36,7 @@ function fechaEsValida(fecha) {
             return false;
         }
     }
-    return true;
+    return true
 }
 
 function mostrarFecha(objFecha) {
@@ -61,6 +59,7 @@ function calculadoraEmbarazo(form) {
     if (fechaEsValida(form.fum.value)) {
         fumIngresada = new Date(form.fum.value)
         fum.setTime(fumIngresada.getTime())
+        document.getElementById("mensaje-error").innerHTML = ""
     } else return false
 
     ciclo = (form.ciclo.value == "" ? 28 : form.ciclo.value)
