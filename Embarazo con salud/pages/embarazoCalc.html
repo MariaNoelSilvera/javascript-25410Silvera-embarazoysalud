@@ -18,7 +18,7 @@
 
 </head>
 
-<body onload="init()">
+<body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container-fluid">
@@ -72,25 +72,60 @@
         </div>
         <h5>Completa los siguientes campos</h5>
         <form onSubmit="return calculadoraEmbarazo(this);">
-            Fecha de última menstruación: <input type=text name=fum value="" size=10 maxlength=10
-                placeholder="MM/DD/YYYY">
+            <div class="row">
+                <div>
+                    <div class="form-group">
+                        <label>Fecha de última menstruación:</label>
+                        <input type=text name=fum value="" maxlength=10 placeholder="MM/DD/YYYY">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="form-group">
+                        <label>Duración promedio de tu ciclo:</label>
+                        <input type=text name=ciclo value="" size=4 maxlength=3> (Por defecto 28)
+                    </div>
+                </div>
+            </div>
 
-            <br>
+            <div class="row">
+                <div>
+                    <div class="form-group">
+                        <label>Duración promedio de tu fase lútea:</label>
+                        <input type=text name=lutea value="" size=4 maxlength=3> (Por defecto
+                        14)
+                    </div>
+                </div>
+            </div>
 
-            Duración promedio de tu ciclo: <input type=text name=ciclo value="" size=3 maxlength=3> (Por
-            defecto 28)
-            <br>
-            Duración promedio de tu fase lútea: <input type=text name=lutea value="" size=3 maxlength=3> (Por defecto
-            14)
-            <br>
-            <center><input type=submit value="Calcular"></center>
-
-
-            Fecha estimada de concepción: <input type=text name=concepcion value="" size=20>
-            <br>
-            Fecha estimada de parto: <input type=text name=fechaParto value="" size=20>
-            <br>
-            Fecha estimada de semanas de embarazo: <input type=text name=tiempoGestacion value="" size=20>
+            <div>
+                <input type=submit class="btn btn-info btn-lg" value="Calcular">
+            </div>
+            <div class="row">
+                <div>
+                    <div class="form-group">
+                        <label>Fecha estimada de concepción:</label>
+                        <input type=text name=concepcion value="" size=20>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="form-group">
+                        <label> Fecha estimada de parto:</label>
+                        <input type=text name=fechaParto value="" size=20>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="form-group">
+                        <label> Fecha estimada de semanas de embarazo:</label>
+                        <input type=text name=tiempoGestacion value="" size=20>
+                    </div>
+                </div>
+            </div>
         </form>
         <div id="mensaje-error">
         </div>

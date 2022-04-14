@@ -1,19 +1,21 @@
-function init() {
-    calculadoraEmbarazo()
-}
-
 function fechaEsValida(fecha) {
+
     var fechaPat = /^(\d{1,2})(\/|-)(\d{1,2})\2(\d{4})$/
     var matchArray = fecha.match(fechaPat)
+
     if (matchArray == null) {
         error = "Formato de fecha inválido"
         mostrarMensajeError(error)
+        //nodoError.innerHTML = ""
+
         return false;
     }
     mes = matchArray[1]
     dia = matchArray[3]
     año = matchArray[4]
+
     if (mes < 1 || mes > 12) {
+
         error = "El mes debe ser entre 1 y 12."
         mostrarMensajeError(error)
         return false;
@@ -59,8 +61,6 @@ function calculadoraEmbarazo(form) {
     if (fechaEsValida(form.fum.value)) {
         fumIngresada = new Date(form.fum.value)
         fum.setTime(fumIngresada.getTime())
-        console.log(fum)
-        console.log(fumIngresada)
     } else return false
 
     ciclo = (form.ciclo.value == "" ? 28 : form.ciclo.value)
