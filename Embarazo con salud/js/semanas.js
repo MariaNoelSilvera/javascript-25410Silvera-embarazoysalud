@@ -1,3 +1,13 @@
+function mostrarFecha(objFecha) {
+    mes = objFecha.getMonth() + 1
+    mes = (mes < 10) ? "0" + mes : mes
+    dia = objFecha.getDate()
+    dia = (dia < 10) ? "0" + dia : dia
+    año = objFecha.getYear()
+    if (año < 2000) año += 1900
+    return (dia + "/" + mes + "/" + año)
+}
+
 function fechaEsValida(fecha) {
     var fechaPat = /^(\d{1,2})(\/|-)(\d{1,2})\2(\d{4})$/
     var matchArray = fecha.match(fechaPat)
@@ -12,7 +22,6 @@ function fechaEsValida(fecha) {
     año = matchArray[4]
 
     if (mes < 1 || mes > 12) {
-
         error = "El mes debe ser entre 1 y 12."
         mostrarMensajeError(error)
         return false
@@ -36,16 +45,6 @@ function fechaEsValida(fecha) {
         }
     }
     return true
-}
-
-function mostrarFecha(objFecha) {
-    mes = objFecha.getMonth() + 1
-    mes = (mes < 10) ? "0" + mes : mes
-    dia = objFecha.getDate()
-    dia = (dia < 10) ? "0" + dia : dia
-    año = objFecha.getYear()
-    if (año < 2000) año += 1900
-    return (dia + "/" + mes + "/" + año)
 }
 function calculadoraEmbarazo(form) {
     fum = new Date()
