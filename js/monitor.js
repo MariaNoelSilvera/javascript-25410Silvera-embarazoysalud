@@ -28,7 +28,6 @@ function crearAccionRegistrar() {
 }
 
 function registrarValor() {
-    let nombre = document.querySelector("#nombre").value
     let fecha = document.querySelector("#fecha").value
     let glicemiaDesayunoAntes = document.querySelector("#glicemiaDesayunoAntes").value
     let glicemiaDesayunoDespues = document.querySelector("#glicemiaDesayunoDespues").value
@@ -40,29 +39,31 @@ function registrarValor() {
     let glicemiaCenaDespues = document.querySelector("#glicemiaCenaDespues").value
     let fechaActual = new Date()
     let fechaFormateada = fecha.split("-")
-    let fechaIMC = new Date(fechaFormateada[0], fechaFormateada[1] - 1, fechaFormateada[2])
+    let fechaRegistro = new Date(fechaFormateada[0], fechaFormateada[1] - 1, fechaFormateada[2])
     let fechaActualMils = fechaActual.getTime()
-    let fechaIMCMils = fechaIMC.getTime()
+    let fechaRegistroMils = fechaRegistro.getTime()
+    let ultimoIndice = listadoDeValores[listadoDeValores.length - 1]
+    const id = ultimoIndice !== undefined ? ultimoIndice.id + 1 : 0
     let nodoError = document.getElementById("mensaje-error")
     let nuevoValor = {
-        nombre: nombre,
+        id: id,
         fecha: `${fechaFormateada[2]}/${fechaFormateada[1]}/${fechaFormateada[0]}`,
-        desayunoAntes: `${glicemiaDesayunoAntes} mg/dl`,
-        desayunoDespues: `${glicemiaDesayunoDespues} mg/dl`,
-        almuerzoAntes: `${glicemiaAlmuerzoAntes} mg/dl`,
-        almuerzoDespues: `${glicemiaAlmuerzoDespues} mg/dl`,
-        meriendaAntes: `${glicemiaMeriendaAntes} mg/dl`,
-        meriendaDespues: `${glicemiaMeriendaDespues} mg/dl`,
-        cenaAntes: `${glicemiaCenaAntes} mg/dl`,
-        cenaDespues: `${glicemiaCenaDespues} mg/dl`
+        desayunoAntes: glicemiaDesayunoAntes,
+        desayunoDespues: glicemiaDesayunoDespues,
+        almuerzoAntes: glicemiaAlmuerzoAntes,
+        almuerzoDespues: glicemiaAlmuerzoDespues,
+        meriendaAntes: glicemiaMeriendaAntes,
+        meriendaDespues: glicemiaMeriendaDespues,
+        cenaAntes: glicemiaCenaAntes,
+        cenaDespues: glicemiaCenaDespues
     }
 
-    if (fecha.trim() === "" || nombre.trim() === "") {
+    if (fecha.trim() === "") {
         nodoError.innerHTML = ""
         mostrarError("empty")
     }
     else {
-        if (fechaIMCMils > fechaActualMils) {
+        if (fechaRegistroMils > fechaActualMils) {
             nodoError.innerHTML = ""
             mostrarError("fecha")
         }
@@ -80,7 +81,7 @@ function mostrarError(tipo) {
     const errorMessage = document.createElement("errorMessage")
     errorMessage.setAttribute("id", "errorMessage")
     tipo === "empty" ? errorMessage.innerHTML =
-        `<span id="error">Error! Debes completar todos los campos</span>` : errorMessage.innerHTML =
+        `<span id="error">Error! Debes ingresar una fecha.</span>` : errorMessage.innerHTML =
     `<span id="error-fecha">Error! La fecha no puede ser mayor a hoy</span>`
 
     const ebody = document.createElement("ebody")
@@ -92,10 +93,10 @@ function cargarTablaResultadosGlicemia() {
     const nodoResultados = document.getElementById("divRegistrosGlicemia")
     nodoResultados.innerHTML = ""
     const table = document.createElement("table")
+    table.setAttribute("class", "table table-bordered")
     table.setAttribute("id", "listaRegistros")
     table.innerHTML =
         `<tr>
-              <th>Nombre</th>
               <th>Fecha</th>
               <th> Antes Desayuno</th>
               <th>Después Desayuno</th>
@@ -110,8 +111,7 @@ function cargarTablaResultadosGlicemia() {
     const tbody = document.createElement("tbody")
     for (const registro of listadoDeValores) {
         const tr = document.createElement("tr")
-        tr.innerHTML = `<td>${registro.nombre}</td>
-                      <td>${registro.fecha}</td>
+        tr.innerHTML = `<td>${registro.fecha}</td>
                       <td>${registro.desayunoAntes}</td>
                       <td>${registro.desayunoDespues}</td>
                       <td>${registro.almuerzoAntes}</td>
@@ -156,8 +156,8 @@ function borrarIndice(id) {
     listadoDeIndices.splice(indiceAEliminar, 1)
     listadoDeValores.splice(indiceAEliminar, 1)
     localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIndices))
-    let lineaIMC = document.getElementById(`fila${id}`)
-    lineaIMC.remove()
+    let lineaRegistro = document.getElementById(`fila${id}`)
+    lineaRegistro.remove()
 }
 
 function persistirDatos() {
