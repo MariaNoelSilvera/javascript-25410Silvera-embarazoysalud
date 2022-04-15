@@ -50,7 +50,6 @@ function calcularIMC() {
     let pesoActual = document.querySelector("#pesoActual").value
     let altura = (document.querySelector("#altura").value)
     let fecha = document.querySelector("#fecha").value
-    let nombre = document.querySelector("#nombre").value
     let semana = document.querySelector("#semana").value
     let alturaMts = altura / 100
     let fechaActual = new Date()
@@ -65,10 +64,9 @@ function calcularIMC() {
     let indice = (pesoAntes / (alturaMts * alturaMts)).toFixed(1)
     let resultado = (calculadora.calcularResultado(indice))
     let pesoGanado = pesoActual - pesoAntes
-    let pesoIdealDesc = resultadoPesoDesc(pesoGanado, nombre, resultado)
+    let pesoIdealDesc = resultadoPesoDesc(pesoGanado, resultado)
     let nuevoIMC = {
         id: id,
-        nombre: nombre,
         pesoAntes: pesoAntes,
         pesoActual: pesoActual,
         indice: indice,
@@ -78,7 +76,7 @@ function calcularIMC() {
         fecha: `${fechaFormateada[2]}/${fechaFormateada[1]}/${fechaFormateada[0]}`
     }
 
-    if (pesoAntes.trim() === "" || pesoActual.trim() === "" || altura.trim() === "" || fecha.trim() === "" || nombre.trim() === "" || semana.trim() === "") {
+    if (pesoAntes.trim() === "" || pesoActual.trim() === "" || altura.trim() === "" || fecha.trim() === "" || semana.trim() === "") {
         nodoError.innerHTML = ""
         mostrarError("empty")
     }
@@ -124,10 +122,10 @@ function cargarTablaIndices() {
     nodoIndices.innerHTML = ""
     const table = document.createElement("table")
     table.setAttribute("id", "listaIndices")
+    table.setAttribute("class", "table table-bordered")
     table.innerHTML =
         `<tr>
-              <th>Nombre</th>
-              <th>Peso Antes</th>
+              <th>Peso Anterior</th>
               <th>Peso Actual</th>
               <th>Semanas</th>
               <th>Indice de masa corporal</th>
@@ -139,8 +137,7 @@ function cargarTablaIndices() {
     const tbody = document.createElement("tbody")
     for (const indice of listadoDeIMC) {
         const tr = document.createElement("tr")
-        tr.innerHTML = `<td>${indice.nombre}</td>
-                        <td>${indice.pesoAntes} kg</td>
+        tr.innerHTML = `<td>${indice.pesoAntes} kg</td>
                         <td>${indice.pesoActual} kg</td>
                         <td>${indice.semana}</td>
                       <td>${indice.indice}</td>
@@ -191,8 +188,8 @@ function persistirDatos() {
     localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIMC))
 }
 
-function resultadoPesoDesc(pesoGanado, nombre, resultado) {
-    return `${nombre}, has ganado: ${pesoGanado} kgs. <br>
+function resultadoPesoDesc(pesoGanado, resultado) {
+    return `Has ganado: ${pesoGanado} kgs. <br>
     El aumento ideal de peso está entre ${resultado}, de acuerdo a tu Indice de Masa Corporal`
 }
 

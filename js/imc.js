@@ -17,14 +17,20 @@ class IndiceMasaCorporal {
         else if (indice >= 25 && indice <= 29.9) {
             resultado = "Sobrepeso"
         }
-        else {
-            resultado = "Obesidad"
+        else if (indice >= 30 && indice <= 34.9) {
+            resultado = "Obesidad grado I"
+        }
+        else if (indice >= 35 && indice <= 39.9) {
+            resultado = "Obesidad grado II"
+        }
+        else if (indice >= 40 && indice <= 49.9) {
+            resultado = "Obesidad grado III"
         }
         return resultado
     }
 
-    mostrarResultado(nombre, indice, resultado) {
-        return `${nombre}, tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
+    mostrarResultado(indice, resultado) {
+        return `Tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
     }
 }
 //Constantes y variables
@@ -53,7 +59,6 @@ function calcularIMC() {
     let peso = document.querySelector("#peso").value
     let altura = (document.querySelector("#altura").value)
     let fecha = document.querySelector("#fecha").value
-    let nombre = document.querySelector("#nombre").value
     let alturaMts = altura / 100
     let fechaActual = new Date()
     let fechaFormateada = fecha.split("-")
@@ -66,16 +71,15 @@ function calcularIMC() {
     const id = ultimoIndice !== undefined ? ultimoIndice.id + 1 : 0
     let indice = (peso / (alturaMts * alturaMts)).toFixed(1)
     let resultado = (calculadora.calcularResultado(indice))
-    let resultadoDesc = (calculadora.mostrarResultado(nombre, indice, resultado))
+    let resultadoDesc = (calculadora.mostrarResultado(indice, resultado))
     let nuevoIMC = {
         id: id,
-        nombre: nombre,
         indice: indice,
         resultado: resultado,
         fecha: `${fechaFormateada[2]}/${fechaFormateada[1]}/${fechaFormateada[0]}`
     }
 
-    if (peso.trim() === "" || altura.trim() === "" || fecha.trim() === "" || nombre.trim() === "") {
+    if (peso.trim() === "" || altura.trim() === "" || fecha.trim() === "") {
         nodoError.innerHTML = ""
         mostrarError("empty")
     }
@@ -88,7 +92,7 @@ function calcularIMC() {
             nodoError.innerHTML = ""
             listadoDeIMC.push(nuevoIMC)
             mostrarResultadoDesc(resultadoDesc)
-            sweetAlertPesoNormal(resultado, nombre)
+            sweetAlertPesoNormal(resultado)
             cargarTablaIndices()
             persistirDatos()
         }
@@ -126,11 +130,11 @@ function cargarTablaIndices() {
     const nodoIndices = document.getElementById("divListaIndices")
     nodoIndices.innerHTML = ""
     const table = document.createElement("table")
+    table.setAttribute("class", "table table-bordered")
     table.setAttribute("id", "listaIndices")
     table.innerHTML =
         `<tr>
               <th>Identificador</th>
-              <th>Nombre</th>
               <th>Indice de Masa Corporal</th>
               <th>Resultado</th>
               <th>Fecha</th>
@@ -139,9 +143,7 @@ function cargarTablaIndices() {
     const tbody = document.createElement("tbody")
     for (const indice of listadoDeIMC) {
         const tr = document.createElement("tr")
-        tr.innerHTML = `<td>${indice.id}</td>
-                        <td>${indice.nombre}</td>
-                      <td>${indice.indice}</td>
+        tr.innerHTML = `<td>${indice.indice}</td>
                       <td>${indice.resultado}</td>
                       <td>${indice.fecha}</td>
                       <td>
@@ -188,11 +190,11 @@ function persistirDatos() {
     localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIMC))
 }
 
-function sweetAlertPesoNormal(resultado, nombre) {
+function sweetAlertPesoNormal(resultado) {
 
     if (resultado === "Peso normal") {
         Swal.fire({
-            title: `¡Sigue así, ${nombre}!`,
+            title: `¡Sigue así!`,
             text: `Tu peso está en la categoría de ${resultado} para adultos de tu misma estatura.`,
             icon: "success",
             confirmButtonText: 'CERRAR'
@@ -200,7 +202,7 @@ function sweetAlertPesoNormal(resultado, nombre) {
     }
     else {
         Swal.fire({
-            title: `¡Ten cuidado, ${nombre}!`,
+            title: `¡Ten cuidado!`,
             text: `Tu peso está en la categoría de ${resultado} para adultos de tu misma estatura. Consulta a tu médico.`,
             icon: "warning",
             confirmButtonText: 'CERRAR'

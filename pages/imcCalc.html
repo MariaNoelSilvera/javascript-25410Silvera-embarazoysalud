@@ -98,71 +98,97 @@
 
         <section class="inner-page">
             <div class="container">
-                <div id="divCalculadoraIMC">
-                    <div>
-                        <p>El Índice de Masa Corporal (IMC) es una forma útil de averiguar si tu peso está dentro de lo
-                            aconsejable.</p>
 
-                        <p> Para calcular tu IMC, tienes que saber tu estatura y tu peso. Si ya estás embarazada, has de
-                            indicar qué peso tenías antes de quedar embarazada.</p>
 
-                        <p>Nota: Esta calculadora del IMC está diseñada para adultos solamente. No se puede usar para
-                            calcular el IMC de un niño.</p>
+                <p>El Índice de Masa Corporal (IMC) es una forma útil de averiguar si tu peso está dentro de lo
+                    aconsejable.</p>
 
-                        <p>La calculadora de IMC es sólo una herramienta y no debe sustituir los consejos de tu doctor
-                            o partera durante tus visitas prenatales.</p>
+                <p> Para calcular tu IMC, tienes que saber tu estatura y tu peso. Si ya estás embarazada, has de
+                    indicar qué peso tenías antes de quedar embarazada.</p>
+
+                <p>Nota: Esta calculadora del IMC está diseñada para adultos solamente. No se puede usar para
+                    calcular el IMC de un niño.</p>
+
+                <p>La calculadora de IMC es sólo una herramienta y no debe sustituir los consejos de tu doctor
+                    o partera durante tus visitas prenatales.</p>
+
+                <h5>Completa los siguientes campos:</h5>
+                <form id="imc-form" onsubmit="return calcularIMC();">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="inputLabel">Fecha:</label>
+                                <input class="form-control" id="fecha" type="date" required />
+                            </div>
+                        </div>
                     </div>
-                    <h5>Completa los siguientes campos</h5>
-                    <form id="imc-form" onsubmit="return calcularIMC();">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>¿Cuál es tu nombre?:</label>
-                                    <input class="form-control" id="nombre" type="text" required />
-                                </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="inputLabel">¿Cuánto pesas?:</label>
+                                <input class="form-control" id="peso" type="number" min="1" max="635" placeholder="kgs"
+                                    required />
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>¿Cuánto pesas?:</label>
-                                    <input class="form-control" id="peso" type="number" min="1" max="635"
-                                        placeholder="kgs" required />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>¿Cuánto mides?:</label>
-                                    <input class="form-control" id="altura" type="number" placeholder="cms" required />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="nombre">Fecha:</label>
-                                    <input class="form-control" id="fecha" type="date" required />
-                                </div>
-                            </div>
-                        </div>
-                        <div id="mensaje-error">
-                        </div>
-                        <div id="btnCalcularIMC">
-                            <button type="button" class="btn btn-info btn-lg" id="calcularBtn">
-                                Calcular IMC
-                            </button>
-                        </div>
-                    </form>
-                    <div id="resultado-imc">
                     </div>
-                    <div>
-                        <div id="divListaIndices">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="inputLabel">¿Cuánto mides?:</label>
+                                <input class="form-control" id="altura" type="number" placeholder="cms" required />
+                            </div>
                         </div>
+                    </div>
+                    <div id="mensaje-error">
+                    </div>
+                    <div id="btnCalcularIMC">
+                        <button type="button" class="btn btn-info btn-lg" id="calcularBtn">
+                            Calcular IMC
+                        </button>
+                    </div>
+                </form>
+                <div id="resultado-imc">
+                </div>
+                <table class="table table-striped" id="valoresNormales">
+                    <tbody>
+                        <tr>
+                            <th>Índice de masa corporal</th>
+                            <th>Categoría</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>
+                                < 18.5</td>
+                            <td>Bajo peso</td>
+                        </tr>
+                        <tr>
+                            <td>Entre 18.5 y 24.9</td>
+                            <td>Peso normal</td>
+                        </tr>
+                        <tr>
+                            <td>Entre 25 y 29.9</td>
+                            <td>Sobrepeso</td>
+                        </tr>
+                        <tr>
+                            <td>Entre 30 y 34.9</td>
+                            <td>Obesidad grado I</td>
+                        </tr>
+                        <tr>
+                            <td>Entre 35 y 39.9</td>
+                            <td>Obesidad grado II</td>
+                        </tr>
+                        <tr>
+                            <td>Entre 40 y 49.9</td>
+                            <td>Obesidad grado III</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <div id="divListaIndices">
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -255,6 +281,8 @@
 
     <!-- Template Main JS File -->
     <script src="../assets/js/main.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

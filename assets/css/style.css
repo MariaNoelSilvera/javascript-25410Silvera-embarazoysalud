@@ -943,8 +943,6 @@ section {
   color: #fff;
   background-color: pink;
   border-color: pink;
-  margin-top: 20px;
-  margin-bottom: 20px;
  }
  .btn-danger:hover, .btn-danger:focus, .btn-danger:active {
   color: #fff;
