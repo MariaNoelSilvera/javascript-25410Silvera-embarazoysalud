@@ -980,6 +980,21 @@ section {
   text-align: center;
 }
 
+#resultadoPesoIdealTitle, #resultadoIMCTitle {
+  font-size: 24px;
+  text-decoration: underline;
+}
+
+#resultadoPesoIdeal, #resultadoIMC  {
+  font-size: 20px;
+}
+
+#resultadoPesoIdealDesc, #resultadoIMCDesc {
+  font-size: 16px;
+  font-style: oblique;
+  padding-bottom: 20px;
+}
+
 @media (min-width: 320px) {
   #valoresNormales {
     width: 100%;

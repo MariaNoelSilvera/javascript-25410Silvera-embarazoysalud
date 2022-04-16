@@ -152,17 +152,17 @@ function cargarTablaResultadosGlicemia() {
 }
 
 function borrarIndice(id) {
-    let listadoDeIndices = JSON.parse(localStorage.getItem("ArrayDeIndices"))
+    let listadoDeIndices = JSON.parse(localStorage.getItem("ArrayDeRegistros"))
     let indiceAEliminar = listadoDeIndices.findIndex(element => element.id === id)
     listadoDeIndices.splice(indiceAEliminar, 1)
     listadoDeValores.splice(indiceAEliminar, 1)
-    localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIndices))
+    localStorage.setItem("ArrayDeRegistros", JSON.stringify(listadoDeIndices))
     let lineaRegistro = document.getElementById(`fila${id}`)
     lineaRegistro.remove()
 }
 
 function persistirDatos() {
-    localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeValores))
+    localStorage.setItem("ArrayDeRegistros", JSON.stringify(listadoDeValores))
 }
 
 

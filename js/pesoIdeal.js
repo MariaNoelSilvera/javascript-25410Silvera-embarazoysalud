@@ -33,8 +33,8 @@ function init() {
 }
 
 function precargarDatos() {
-    if (localStorage.getItem("ArrayDeIndices") !== null) {
-        listadoDeIMC = JSON.parse(localStorage.getItem("ArrayDeIndices"))
+    if (localStorage.getItem("ArrayDePesos") !== null) {
+        listadoDeIMC = JSON.parse(localStorage.getItem("ArrayDePesos"))
     }
 }
 
@@ -64,7 +64,6 @@ function calcularIMC() {
     let indice = (pesoAntes / (alturaMts * alturaMts)).toFixed(1)
     let resultado = (calculadora.calcularResultado(indice))
     let pesoGanado = pesoActual - pesoAntes
-    let pesoIdealDesc = resultadoPesoDesc(pesoGanado, resultado)
     let nuevoIMC = {
         id: id,
         pesoAntes: pesoAntes,
@@ -93,7 +92,7 @@ function calcularIMC() {
             else {
                 nodoError.innerHTML = ""
                 listadoDeIMC.push(nuevoIMC)
-                mostrarResultadoPeso(pesoIdealDesc)
+                mostrarResultadoPeso(pesoGanado, resultado)
                 cargarTablaIndices()
                 persistirDatos()
                 mostrarBotonRecalcular()
@@ -179,49 +178,58 @@ function cargarTablaIndices() {
         let boton = document.getElementById(`btnBorrar${indice.id}`)
         boton.onclick = () => borrarIndice(indice.id)
     }
-    for (const indice of listadoDeIMC) {
-        let boton = document.getElementById(`btnBorrar${indice.id}`)
-        boton.addEventListener("click", () => {
-            Toastify({
-                text: "Registro eliminado ",
-                duration: 3000,
-                gravity: 'top',
-                position: 'right',
-                style: {
-                    background: 'red'
-                }
-            }).showToast();
-        })
-    }
 }
 
 function borrarIndice(id) {
-    let listadoDeIndices = JSON.parse(localStorage.getItem("ArrayDeIndices"))
+    let listadoDeIndices = JSON.parse(localStorage.getItem("ArrayDePesos"))
     let indiceAEliminar = listadoDeIndices.findIndex(element => element.id === id)
     listadoDeIndices.splice(indiceAEliminar, 1)
     listadoDeIMC.splice(indiceAEliminar, 1)
-    localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIndices))
+    localStorage.setItem("ArrayDePesos", JSON.stringify(listadoDeIndices))
     let lineaIMC = document.getElementById(`fila${id}`)
     lineaIMC.remove()
 }
 
 function persistirDatos() {
-    localStorage.setItem("ArrayDeIndices", JSON.stringify(listadoDeIMC))
+    localStorage.setItem("ArrayDePesos", JSON.stringify(listadoDeIMC))
 }
 
-function resultadoPesoDesc(pesoGanado, resultado) {
-    return `Has ganado: ${pesoGanado} kgs. <br>
-    El aumento ideal de peso está entre ${resultado}, de acuerdo a tu Indice de Masa Corporal`
-}
-
-function mostrarResultadoPeso(resultadoPesoDesc) {
+function mostrarResultadoPeso(pesoGanado, resultado) {
     const nodoResultado = document.getElementById("resultado-peso")
     nodoResultado.innerHTML = ""
     const resultadoPeso = document.createElement("resultado-peso")
     resultadoPeso.setAttribute("id", "resultado-peso")
     resultadoPeso.innerHTML =
-        `<H5> RESULTADO: </H5>
-        <p> ${resultadoPesoDesc} </p>`
+        `<div id="resultadoPesoIdealTitle"> RESULTADO: </div>
+        <div id="resultadoPesoIdeal"> Has ganado: ${pesoGanado} kgs.</div>
+        <div id="resultadoPesoIdealDesc"> El aumento ideal de peso está entre ${resultado}, de acuerdo a tu Indice de Masa Corporal.</div>
+        <table class="table table-striped" id="valoresNormales">
+        <tbody>
+            <tr>
+                <th>Índice de masa corporal</th>
+                <th>Aumento ideal</th>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>
+                    < 18.5</td>
+                <td>12,5-18 kg</td>
+            </tr>
+            <tr>
+                <td>Entre 18.5 y 24.9</td>
+                <td>11,5-16 Kg</td>
+            </tr>
+            <tr>
+                <td>Entre 25 y 29.9</td>
+                <td>7-11,5 Kg</td>
+            </tr>
+            <tr>
+                <td>Mayor a 30</td>
+                <td>5-9 Kg</td>
+            </tr>
+        </tbody>
+    </table>`
     const rbody = document.createElement("rbody")
     resultadoPeso.appendChild(rbody)
     nodoResultado.appendChild(resultadoPeso)

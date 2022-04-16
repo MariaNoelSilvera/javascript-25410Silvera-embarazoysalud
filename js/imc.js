@@ -28,10 +28,6 @@ class IndiceMasaCorporal {
         }
         return resultado
     }
-
-    mostrarResultado(indice, resultado) {
-        return `Tu IMC es ${indice}, lo que indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.`
-    }
 }
 //Constantes y variables
 let listadoDeIMC = []
@@ -71,7 +67,6 @@ function calcularIMC() {
     const id = ultimoIndice !== undefined ? ultimoIndice.id + 1 : 0
     let indice = (peso / (alturaMts * alturaMts)).toFixed(1)
     let resultado = (calculadora.calcularResultado(indice))
-    let resultadoDesc = (calculadora.mostrarResultado(indice, resultado))
     let nuevoIMC = {
         id: id,
         indice: indice,
@@ -91,7 +86,7 @@ function calcularIMC() {
         else {
             nodoError.innerHTML = ""
             listadoDeIMC.push(nuevoIMC)
-            mostrarResultadoDesc(resultadoDesc)
+            mostrarResultadoDesc(indice, resultado)
             sweetAlertPesoNormal(resultado)
             cargarTablaIndices()
             persistirDatos()
@@ -100,14 +95,50 @@ function calcularIMC() {
     }
 }
 
-function mostrarResultadoDesc(resultadoDesc) {
+function mostrarResultadoDesc(indice, resultado) {
     const nodoResultado = document.getElementById("resultado-imc")
     nodoResultado.innerHTML = ""
     const resultadoIMC = document.createElement("resultado-imc")
     resultadoIMC.setAttribute("id", "resultado-imc")
     resultadoIMC.innerHTML =
-        `<H5> RESULTADO: </H5>
-            <p> ${resultadoDesc} </p>`
+        `<div id="resultadoIMCTitle"> RESULTADO: </div>
+        <div id="resultadoIMC"> Tu IMC es ${indice}.</div>
+        <div id="resultadoIMCDesc"> Esto indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.</div>
+        <table class="table table-striped" id="valoresNormales" width="50%">
+        <tbody>
+            <tr>
+                <th>Índice de masa corporal</th>
+                <th>Categoría</th>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>
+                    < 18.5</td>
+                <td>Bajo peso</td>
+            </tr>
+            <tr>
+                <td>Entre 18.5 y 24.9</td>
+                <td>Peso normal</td>
+            </tr>
+            <tr>
+                <td>Entre 25 y 29.9</td>
+                <td>Sobrepeso</td>
+            </tr>
+            <tr>
+                <td>Entre 30 y 34.9</td>
+                <td>Obesidad grado I</td>
+            </tr>
+            <tr>
+                <td>Entre 35 y 39.9</td>
+                <td>Obesidad grado II</td>
+            </tr>
+            <tr>
+                <td>Entre 40 y 49.9</td>
+                <td>Obesidad grado III</td>
+            </tr>
+        </tbody>
+    </table>`
     const rbody = document.createElement("rbody")
     resultadoIMC.appendChild(rbody)
     nodoResultado.appendChild(resultadoIMC)
