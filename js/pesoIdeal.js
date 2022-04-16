@@ -96,9 +96,30 @@ function calcularIMC() {
                 mostrarResultadoPeso(pesoIdealDesc)
                 cargarTablaIndices()
                 persistirDatos()
+                mostrarBotonRecalcular()
             }
         }
     }
+}
+function borrarResultado() {
+    const nodoResultado = document.getElementById("resultado-peso")
+    nodoResultado.innerHTML = ""
+}
+
+function mostrarBotonRecalcular() {
+    const nodoBoton = document.getElementById("btnRecalcularPeso")
+    nodoBoton.innerHTML = ""
+    const recalcularBtn = document.createElement("recalcularBtn")
+    recalcularBtn.setAttribute("id", "recalcularBtn")
+    recalcularBtn.innerHTML =
+        `<button type="reset" class="btn btn-info btn-lg">
+        Volver a calcular
+    </button>`
+
+    const bbody = document.createElement("bbody")
+    recalcularBtn.appendChild(bbody)
+    nodoBoton.appendChild(recalcularBtn)
+    recalcularBtn.onclick = () => borrarResultado()
 }
 
 function mostrarError(tipo) {

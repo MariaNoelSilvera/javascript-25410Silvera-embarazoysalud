@@ -69,6 +69,7 @@ function calculadoraEmbarazo(form) {
     dias = Math.floor(tiempoGestacion % 7)
     tiempoGestacion = semanas + " semana" + (semanas > 1 ? "s" : "") + ", " + dias + " días"
     form.tiempoGestacion.value = tiempoGestacion
+    mostrarBotonRecalcular()
     return false
 }
 
@@ -81,4 +82,20 @@ function mostrarMensajeError(error) {
     const ebody = document.createElement("ebody")
     errorMessage.appendChild(ebody)
     nodoError.appendChild(errorMessage)
+}
+
+function mostrarBotonRecalcular() {
+    const nodoBoton = document.getElementById("btnRecalcularSemanas")
+    nodoBoton.innerHTML = ""
+    const recalcularBtn = document.createElement("recalcularBtn")
+    recalcularBtn.setAttribute("id", "recalcularBtn")
+    recalcularBtn.innerHTML =
+        `<button type="reset" class="btn btn-info btn-lg">
+        Volver a calcular
+    </button>`
+
+    const bbody = document.createElement("bbody")
+    recalcularBtn.appendChild(bbody)
+    nodoBoton.appendChild(recalcularBtn)
+    recalcularBtn.onclick = () => borrarResultado()
 }

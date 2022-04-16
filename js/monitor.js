@@ -72,6 +72,7 @@ function registrarValor() {
             listadoDeValores.push(nuevoValor)
             cargarTablaResultadosGlicemia()
             persistirDatos()
+            mostrarBotonLimpiar()
         }
     }
 }
@@ -89,6 +90,21 @@ function mostrarError(tipo) {
     nodoError.appendChild(errorMessage)
 }
 
+function mostrarBotonLimpiar() {
+    const nodoBoton = document.getElementById("btnLimpiarFormulario")
+    nodoBoton.innerHTML = ""
+    const recalcularBtn = document.createElement("limpiarBtn")
+    recalcularBtn.setAttribute("id", "limpiarBtn")
+    recalcularBtn.innerHTML =
+        `<button type="reset" class="btn btn-info btn-lg">
+        Limpiar formulario
+    </button>`
+
+    const bbody = document.createElement("bbody")
+    recalcularBtn.appendChild(bbody)
+    nodoBoton.appendChild(recalcularBtn)
+}
+
 function cargarTablaResultadosGlicemia() {
     const nodoResultados = document.getElementById("divRegistrosGlicemia")
     nodoResultados.innerHTML = ""
@@ -96,18 +112,17 @@ function cargarTablaResultadosGlicemia() {
     table.setAttribute("class", "table table-bordered")
     table.setAttribute("id", "listaRegistros")
     table.innerHTML =
-        `<tr>
-              <th>Fecha</th>
-              <th> Antes Desayuno</th>
-              <th>Después Desayuno</th>
-              <th>Antes Almuerzo</th>
-              <th>Después Almuerzo</th>
-              <th>Antes Merienda</th>
-              <th>Después Merienda</th>
-              <th>Antes Cena</th>
-              <th>Después Cena</th>
-              <th>Acciones</th>
-            </tr>`
+        `
+    <tr>
+    <th colspan=1>Fecha</th>
+              <th colspan=2>Desayuno</th>
+                  <th colspan=2>Almuerzo</th>
+                  <th colspan=2>Merienda</th>
+                  <th colspan=2>Cena</th>
+                  <th colspan=1>Acciones</th>
+          </tr>
+          
+               `
     const tbody = document.createElement("tbody")
     for (const registro of listadoDeValores) {
         const tr = document.createElement("tr")
@@ -133,20 +148,6 @@ function cargarTablaResultadosGlicemia() {
     for (const registro of listadoDeValores) {
         let boton = document.getElementById(`btnBorrar${registro.id}`)
         boton.onclick = () => borrarIndice(registro.id)
-    }
-    for (const registro of listadoDeValores) {
-        let boton = document.getElementById(`btnBorrar${registro.id}`)
-        boton.addEventListener("click", () => {
-            Toastify({
-                text: "Registro eliminado ",
-                duration: 3000,
-                gravity: 'top',
-                position: 'right',
-                style: {
-                    background: 'red'
-                }
-            }).showToast();
-        })
     }
 }
 
