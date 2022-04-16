@@ -95,6 +95,7 @@ function calcularIMC() {
             sweetAlertPesoNormal(resultado)
             cargarTablaIndices()
             persistirDatos()
+            mostrarBotonRecalcular()
         }
     }
 }
@@ -110,7 +111,11 @@ function mostrarResultadoDesc(resultadoDesc) {
     const rbody = document.createElement("rbody")
     resultadoIMC.appendChild(rbody)
     nodoResultado.appendChild(resultadoIMC)
+}
 
+function borrarResultado() {
+    const nodoResultado = document.getElementById("resultado-imc")
+    nodoResultado.innerHTML = ""
 }
 
 function mostrarError(tipo) {
@@ -126,6 +131,22 @@ function mostrarError(tipo) {
     nodoError.appendChild(errorMessage)
 }
 
+function mostrarBotonRecalcular() {
+    const nodoBoton = document.getElementById("btnRecalcularIMC")
+    nodoBoton.innerHTML = ""
+    const recalcularBtn = document.createElement("recalcularBtn")
+    recalcularBtn.setAttribute("id", "recalcularBtn")
+    recalcularBtn.innerHTML =
+        `<button type="reset" class="btn btn-info btn-lg">
+        Volver a calcular
+    </button>`
+
+    const bbody = document.createElement("bbody")
+    recalcularBtn.appendChild(bbody)
+    nodoBoton.appendChild(recalcularBtn)
+    recalcularBtn.onclick = () => borrarResultado()
+}
+
 function cargarTablaIndices() {
     const nodoIndices = document.getElementById("divListaIndices")
     nodoIndices.innerHTML = ""
@@ -134,23 +155,21 @@ function cargarTablaIndices() {
     table.setAttribute("id", "listaIndices")
     table.innerHTML =
         `<tr>
-              <th>Identificador</th>
-              <th>Indice de Masa Corporal</th>
-              <th>Resultado</th>
-              <th>Fecha</th>
-              <th>Acciones</th>
-            </tr>`
+            <th>Fecha</th>
+            <th>Indice de Masa Corporal</th>
+            <th>Resultado</th>
+            <th>Acciones</th>
+        </tr>`
     const tbody = document.createElement("tbody")
     for (const indice of listadoDeIMC) {
         const tr = document.createElement("tr")
-        tr.innerHTML = `<td>${indice.indice}</td>
-                      <td>${indice.resultado}</td>
-                      <td>${indice.fecha}</td>
-                      <td>
+        tr.innerHTML = `<td>${indice.fecha}</td>
+                        <td>${indice.indice}</td>
+                        <td>${indice.resultado}</td>
+                        <td>
                         <button id="btnBorrar${indice.id}" class="btn btn-danger" >
                             Borrar
-                        </button>
-                    </td>`;
+                        </button></td>`;
         tr.setAttribute("id", `fila${indice.id}`)
         tbody.appendChild(tr)
     }
@@ -159,20 +178,6 @@ function cargarTablaIndices() {
     for (const indice of listadoDeIMC) {
         let boton = document.getElementById(`btnBorrar${indice.id}`)
         boton.onclick = () => borrarIndice(indice.id)
-    }
-    for (const indice of listadoDeIMC) {
-        let boton = document.getElementById(`btnBorrar${indice.id}`)
-        boton.addEventListener("click", () => {
-            Toastify({
-                text: "Registro eliminado ",
-                duration: 3000,
-                gravity: 'top',
-                position: 'right',
-                style: {
-                    background: 'red'
-                }
-            }).showToast();
-        })
     }
 }
 
@@ -191,7 +196,6 @@ function persistirDatos() {
 }
 
 function sweetAlertPesoNormal(resultado) {
-
     if (resultado === "Peso normal") {
         Swal.fire({
             title: `¡Sigue así!`,

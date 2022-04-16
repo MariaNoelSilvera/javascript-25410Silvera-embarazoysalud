@@ -963,10 +963,6 @@ section {
   border-color: #d1e6f9; /*set the color you want here*/
 }
 
- .td {
-  text-align: center;
-}
-
 #mensaje-error {
   margin-top: 10px;
   font-size: large;
@@ -979,3 +975,26 @@ section {
   margin-top: 20px;
   margin-bottom: 5px;
 }
+
+#listaIndices {
+  text-align: center;
+}
+
+@media (min-width: 320px) {
+  #valoresNormales {
+    width: 100%;
+   }
+}
+
+@media (min-width: 768px) {
+  #valoresNormales {
+    width: 80%;
+   }
+}
+
+@media (min-width: 1200px) {
+  #valoresNormales {
+    width: 50%;
+   }
+  }
+

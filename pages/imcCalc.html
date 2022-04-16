@@ -112,7 +112,6 @@
                 <p>La calculadora de IMC es sólo una herramienta y no debe sustituir los consejos de tu doctor
                     o partera durante tus visitas prenatales.</p>
 
-                <h5>Completa los siguientes campos:</h5>
                 <form id="imc-form" onsubmit="return calcularIMC();">
                     <div class="row">
                         <div class="col-sm-2">
@@ -141,15 +140,20 @@
                     </div>
                     <div id="mensaje-error">
                     </div>
-                    <div id="btnCalcularIMC">
-                        <button type="button" class="btn btn-info btn-lg" id="calcularBtn">
-                            Calcular IMC
-                        </button>
+                    <div class="row">
+                        <div class="col-md-2" id="btnCalcularIMC">
+                            <button type="button" class="btn btn-info btn-lg" id="calcularBtn">
+                                Calcular IMC
+                            </button>
+                        </div>
+                        <div class="col-md-2" id="btnRecalcularIMC">
+                        </div>
+                    </div>
+                    <div id="resultado-imc">
                     </div>
                 </form>
-                <div id="resultado-imc">
-                </div>
-                <table class="table table-striped" id="valoresNormales">
+
+                <table class="table table-striped" id="valoresNormales" width="50%">
                     <tbody>
                         <tr>
                             <th>Índice de masa corporal</th>
