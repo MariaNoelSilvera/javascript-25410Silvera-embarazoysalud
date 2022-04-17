@@ -190,10 +190,6 @@ function borrarIndice(id) {
     lineaIMC.remove()
 }
 
-function persistirDatos() {
-    localStorage.setItem("ArrayDePesos", JSON.stringify(listadoDeIMC))
-}
-
 function mostrarResultadoPeso(pesoGanado, resultado) {
     const nodoResultado = document.getElementById("resultado-peso")
     nodoResultado.innerHTML = ""
@@ -234,6 +230,12 @@ function mostrarResultadoPeso(pesoGanado, resultado) {
     resultadoPeso.appendChild(rbody)
     nodoResultado.appendChild(resultadoPeso)
 }
+
+function persistirDatos() {
+    localStorage.setItem("ArrayDePesos", JSON.stringify(listadoDeIMC))
+}
+
+
 
 
 

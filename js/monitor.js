@@ -11,7 +11,6 @@ let listadoDeValores = []
 function init() {
     precargarDatos()
     crearAccionRegistrar()
-
 }
 
 function precargarDatos() {
@@ -37,11 +36,7 @@ function registrarValor() {
     let glicemiaMeriendaDespues = document.querySelector("#glicemiaMeriendaDespues").value
     let glicemiaCenaAntes = document.querySelector("#glicemiaCenaAntes").value
     let glicemiaCenaDespues = document.querySelector("#glicemiaCenaDespues").value
-    let fechaActual = new Date()
     let fechaFormateada = fecha.split("-")
-    let fechaRegistro = new Date(fechaFormateada[0], fechaFormateada[1] - 1, fechaFormateada[2])
-    let fechaActualMils = fechaActual.getTime()
-    let fechaRegistroMils = fechaRegistro.getTime()
     let ultimoIndice = listadoDeValores[listadoDeValores.length - 1]
     const id = ultimoIndice !== undefined ? ultimoIndice.id + 1 : 0
     let nodoError = document.getElementById("mensaje-error")
@@ -63,17 +58,13 @@ function registrarValor() {
         mostrarError("empty")
     }
     else {
-        if (fechaRegistroMils > fechaActualMils) {
-            nodoError.innerHTML = ""
-            mostrarError("fecha")
-        }
-        else {
-            nodoError.innerHTML = ""
-            listadoDeValores.push(nuevoValor)
-            cargarTablaResultadosGlicemia()
-            persistirDatos()
-            mostrarBotonLimpiar()
-        }
+        nodoError.innerHTML = ""
+        listadoDeValores.push(nuevoValor)
+        cargarTablaResultadosGlicemia()
+        persistirDatos()
+        mostrarBotonLimpiar()
+        mostrarBotonImprimir()
+
     }
 }
 
@@ -103,6 +94,20 @@ function mostrarBotonLimpiar() {
     const bbody = document.createElement("bbody")
     recalcularBtn.appendChild(bbody)
     nodoBoton.appendChild(recalcularBtn)
+}
+
+function mostrarBotonImprimir() {
+    const nodoBotonImprimir = document.getElementById("btnImprimir")
+    nodoBotonImprimir.innerHTML = ""
+    const imprimirBtn = document.createElement("imprimirBtn")
+    imprimirBtn.setAttribute("id", "imprimirBtn")
+    imprimirBtn.innerHTML =
+        `<button type="button" class="btn btn-info btn-lg"
+        onclick="javascript:window.print()">Imprimir</button>`
+
+    const ibody = document.createElement("ibody")
+    imprimirBtn.appendChild(ibody)
+    nodoBotonImprimir.appendChild(imprimirBtn)
 }
 
 function cargarTablaResultadosGlicemia() {
@@ -147,22 +152,22 @@ function cargarTablaResultadosGlicemia() {
     nodoResultados.appendChild(table)
     for (const registro of listadoDeValores) {
         let boton = document.getElementById(`btnBorrar${registro.id}`)
-        boton.onclick = () => borrarIndice(registro.id)
+        boton.onclick = () => borrarRegistro(registro.id)
     }
 }
 
-function borrarIndice(id) {
-    let listadoDeIndices = JSON.parse(localStorage.getItem("ArrayDeRegistros"))
-    let indiceAEliminar = listadoDeIndices.findIndex(element => element.id === id)
-    listadoDeIndices.splice(indiceAEliminar, 1)
-    listadoDeValores.splice(indiceAEliminar, 1)
-    localStorage.setItem("ArrayDeRegistros", JSON.stringify(listadoDeIndices))
+function borrarRegistro(id) {
+    let listadoDeRegistros = JSON.parse(localStorage.getItem("ArrayDeValores"))
+    let registroAEliminar = listadoDeRegistros.findIndex(element => element.id === id)
+    listadoDeIndices.splice(registroAEliminar, 1)
+    listadoDeRegistros.splice(registroAEliminar, 1)
+    localStorage.setItem("ArrayDeValores", JSON.stringify(listadoDeRegistros))
     let lineaRegistro = document.getElementById(`fila${id}`)
     lineaRegistro.remove()
 }
 
 function persistirDatos() {
-    localStorage.setItem("ArrayDeRegistros", JSON.stringify(listadoDeValores))
+    localStorage.setItem("ArrayDeValores", JSON.stringify(listadoDeValores))
 }
 
 
