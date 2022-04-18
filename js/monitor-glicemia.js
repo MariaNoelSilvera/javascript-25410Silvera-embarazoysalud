@@ -16,6 +16,8 @@ function init() {
 function precargarDatos() {
     if (localStorage.getItem("ArrayDeValores") !== null) {
         listadoDeValores = JSON.parse(localStorage.getItem("ArrayDeValores"))
+        cargarTablaResultadosGlicemia()
+        mostrarBotonImprimir()
     }
 }
 
@@ -63,8 +65,6 @@ function registrarValor() {
         cargarTablaResultadosGlicemia()
         persistirDatos()
         mostrarBotonLimpiar()
-        mostrarBotonImprimir()
-
     }
 }
 
@@ -108,7 +108,7 @@ function cargarTablaResultadosGlicemia() {
     table.setAttribute("class", "table table-responsive table-bordered")
     table.setAttribute("id", "listaRegistros")
     table.innerHTML =
-        `<thead>
+        `<thead id="tableHeader">
             <tr>
                 <th colspan=1>Fecha </th>
                 <th colspan=2>Desayuno (mg/dl)</th>

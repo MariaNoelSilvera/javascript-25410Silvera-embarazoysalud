@@ -35,6 +35,7 @@ function init() {
 function precargarDatos() {
     if (localStorage.getItem("ArrayDePesos") !== null) {
         listadoDeIMC = JSON.parse(localStorage.getItem("ArrayDePesos"))
+        cargarTablaIndices()
     }
 }
 
@@ -144,7 +145,8 @@ function cargarTablaIndices() {
     table.setAttribute("id", "listaIndices")
     table.setAttribute("class", "table table-bordered")
     table.innerHTML =
-        `<tr>
+        `<thead id="tableHeader">
+            <tr>
               <th>Fecha</th>
               <th>Semanas</th>
               <th>Peso Anterior</th>
@@ -153,7 +155,8 @@ function cargarTablaIndices() {
               <th>Indice de masa corporal</th>
               <th>Aumento ideal</th>
               <th>Acciones</th>
-            </tr>`
+            </tr>
+            </thead>`
     const tbody = document.createElement("tbody")
     for (const indice of listadoDeIMC) {
         const tr = document.createElement("tr")
@@ -199,34 +202,7 @@ function mostrarResultadoPeso(pesoGanado, resultado) {
     resultadoPeso.innerHTML =
         `<div id="resultadoPesoIdealTitle"> RESULTADO: </div>
         <div id="resultadoPesoIdeal"> Has ganado: ${pesoGanado} kgs.</div>
-        <div id="resultadoPesoIdealDesc"> El aumento ideal de peso está entre ${resultado}, de acuerdo a tu Indice de Masa Corporal.</div>
-        <table class="table table-striped" id="valoresNormales">
-        <thead>
-            <tr>
-                <th>Índice de masa corporal</th>
-                <th>Aumento ideal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    < 18.5</td>
-                <td>12,5-18 kg</td>
-            </tr>
-            <tr>
-                <td>Entre 18.5 y 24.9</td>
-                <td>11,5-16 Kg</td>
-            </tr>
-            <tr>
-                <td>Entre 25 y 29.9</td>
-                <td>7-11,5 Kg</td>
-            </tr>
-            <tr>
-                <td>Mayor a 30</td>
-                <td>5-9 Kg</td>
-            </tr>
-        </tbody>
-    </table>`
+        <div id="resultadoPesoIdealDesc"> El aumento ideal de peso está entre ${resultado}, de acuerdo a tu Indice de Masa Corporal.</div>`
     nodoResultado.appendChild(resultadoPeso)
 }
 

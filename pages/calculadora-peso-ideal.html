@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Calculadora de embarazo</title>
+    <title>Calculadora de peso ideal</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -39,7 +39,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body onload="init()">
 
     <!-- ======= Top Bar ======= -->
     <div id="topbar" class="d-flex align-items-center fixed-top">
@@ -68,10 +68,12 @@
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
                     <li><a class="nav-link scrollto" href="../index.html">Inicio</a></li>
-                    <li><a class="nav-link scrollto" href="monitorGlicemia.html">Monitor de glicemia</a></li>
-                    <li><a class="nav-link scrollto" href="imcCalc.html">Calculadora de IMC</a></li>
-                    <li><a class="nav-link scrollto" href="pesoIdealCalc.html">Calculadora de peso ideal</a></li>
-                    <li><a class="nav-link scrollto active" href="embarazoCalc.html">Calculadora de embarazo</a></li>
+                    <li><a class="nav-link scrollto" href="monitor-glicemia.html">Monitor de glicemia</a></li>
+                    <li><a class="nav-link scrollto" href="calculadora-imc.html">Calculadora de IMC</a></li>
+                    <li><a class="nav-link scrollto active" href="calculadora-peso-ideal.html">Calculadora de peso
+                            ideal</a></li>
+                    <li><a class="nav-link scrollto" href="calculadora-semanas-gestacion.html">Calculadora de
+                            embarazo</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -86,10 +88,10 @@
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Calculadora de embarazo</h2>
+                    <h2>Calculadora de peso ideal</h2>
                     <ol>
                         <li><a href="../index.html">Inicio</a></li>
-                        <li>Calculadora de embarazo</li>
+                        <li>Calculadora de peso ideal</li>
                     </ol>
                 </div>
 
@@ -99,70 +101,104 @@
         <section class="inner-page">
             <div class="container">
                 <div>
-                    <p>¿Quieres saber de cuántas semanas estás embarazada y tu fecha de parto?
+                    <p> Mediante esta calculadora del peso ideal en el embarazo es posible controlar el aumento de
+                        peso durante
+                        tu de gestación y compararlo con el rango de peso considerado como saludable. No
+                        olvides que es imprescindible llevar una dieta sana y realizar ejercicio físico durante el
+                        embarazo.
+                        Esta calculadora del peso ideal de la mujer embarazada es una herramienta de orientación que
+                        no
+                        sustituye las indicaciones del médico o ginecólogo.
                     </p>
-
-                    <p>Saber en qué semana del embarazo te encuentras y tu fecha probable de parto no siempre es
-                        fácil,
-                        especialmente si eres primeriza.</p>
-
-                    <p>Por eso hemos creado esta sencilla herramienta para que
-                        tengas
-                        un control total sobre tu embarazo.</p>
-
-                    <p>Es muy fácil: introduce la fecha en que empezó tu última menstruación (FUM) y descubrirás
-                        cuándo tendrás
-                        a tu bebé y en qué semana y día de embarazo estás.</p>
                 </div>
-                <form onSubmit="return calculadoraEmbarazo(this);">
+                <form id="imc-form" onsubmit="return calcularIMC();">
                     <div class="row">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="inputLabel">Fecha:</label>
-                                    <input class="form-control" id="fecha" type="date" name=fum required />
-                                </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="inputLabel">Fecha:</label>
+                                <input class="form-control" id="fecha" type="date" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="inputLabel">Semana de embarazo:</label>
+                                <input class="form-control" id="semana" type="number" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="inputLabel">Peso previo al embarazo:</label>
+                                <input class="form-control" id="pesoAntes" type="number" min="1" max="635"
+                                    placeholder="kgs" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="inputLabel">Peso actual:</label>
+                                <input class="form-control" id="pesoActual" type="number" placeholder="kgs" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="inputLabel">¿Cuánto mides?:</label>
+                                <input class="form-control" id="altura" type="number" placeholder="cms" required />
                             </div>
                         </div>
                     </div>
                     <div id="mensaje-error">
                     </div>
                     <div class="row">
-                        <div class="col-md-2" id="btnCalcularSemanas">
-                            <input type=submit class="btn btn-info btn-lg" value="Calcular fechas">
+                        <div class="col-md-2" id="btnCalcularIMC">
+                            <button type="button" class="btn btn-info btn-lg" id="calcularBtn">
+                                Calcular peso
+                            </button>
                         </div>
-                        <div class="col-md-2" id="btnRecalcularSemanas">
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="row">
-                        <div>
-                            <div class="form-group">
-                                <label class="inputLabel">Fecha estimada de concepción:</label>
-                                <input type=text name=concepcion value="" size=20>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div>
-                            <div class="form-group">
-                                <label class="inputLabel"> Fecha estimada de parto:</label>
-                                <input type=text name=fechaParto value="" size=20>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div>
-                            <div class="form-group">
-                                <label class="inputLabel"> Fecha estimada de semanas de embarazo:</label>
-                                <input type=text name=tiempoGestacion value="" size=20>
-                            </div>
+                        <div class="col-md-2" id="btnRecalcularPeso">
                         </div>
                     </div>
                 </form>
+                <div id="resultado-peso">
+                </div>
+                <table class="table table-striped" id="valoresNormales">
+                    <thead>
+                        <tr>
+                            <th>Índice de masa corporal</th>
+                            <th>Aumento ideal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                < 18.5</td>
+                            <td>12,5-18 kg</td>
+                        </tr>
+                        <tr>
+                            <td>Entre 18.5 y 24.9</td>
+                            <td>11,5-16 Kg</td>
+                        </tr>
+                        <tr>
+                            <td>Entre 25 y 29.9</td>
+                            <td>7-11,5 Kg</td>
+                        </tr>
+                        <tr>
+                            <td>Mayor a 30</td>
+                            <td>5-9 Kg</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <div id="divListaIndices">
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -190,16 +226,21 @@
                         <h4>Links</h4>
                         <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="../index.html">Inicio</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="monitorGlicemia.html">Monitor de
+                            <li><i class="bx bx-chevron-right"></i> <a href="monitor-glicemia.html">Monitor de
                                     glicemia</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="imcCalc.html">Calculadora de IMC</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="pesoIdealCalc.html">Calculadora de peso
+                            <li><i class="bx bx-chevron-right"></i> <a href="calculadora-imc.html">Calculadora de
+                                    IMC</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="calculadora-peso-ideal.html">Calculadora de
+                                    peso
                                     ideal</a>
                             </li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="embarazoCalc.html">Calculadora de
+                            <li><i class="bx bx-chevron-right"></i> <a
+                                    href="calculadora-semanas-gestacion.html">Calculadora de
                                     embarazo</a></li>
                         </ul>
                     </div>
+
+
 
                     <div class="col-lg-4 col-md-6 footer-newsletter">
                         <h4>Suscríbete a nuestro newsletter</h4>
@@ -242,7 +283,7 @@
             class="bi bi-arrow-up-short"></i></a>
 
     <!-- Calc Main JS File -->
-    <script src="../js/semanas.js" defer></script>
+    <script src="../js/calculadora-peso-ideal.js" defer></script>
 
     <!-- Vendor JS Files -->
     <script src="../assets/vendor/purecounter/purecounter.js"></script>

@@ -36,11 +36,13 @@ let listadoDeIMC = []
 function init() {
     precargarDatos()
     crearAccionCalcular()
+
 }
 
 function precargarDatos() {
     if (localStorage.getItem("ArrayDeIndices") !== null) {
         listadoDeIMC = JSON.parse(localStorage.getItem("ArrayDeIndices"))
+        cargarTablaIndices()
     }
 }
 
@@ -88,8 +90,8 @@ function calcularIMC() {
             listadoDeIMC.push(nuevoIMC)
             mostrarResultadoDesc(indice, resultado)
             sweetAlertPesoNormal(resultado)
-            cargarTablaIndices()
             persistirDatos()
+            cargarTablaIndices()
             mostrarBotonRecalcular()
         }
     }
@@ -103,42 +105,7 @@ function mostrarResultadoDesc(indice, resultado) {
     resultadoIMC.innerHTML =
         `<div id="resultadoIMCTitle"> RESULTADO: </div>
         <div id="resultadoIMC"> Tu IMC es ${indice}.</div>
-        <div id="resultadoIMCDesc"> Esto indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.</div>
-        <table class="table table-striped" id="valoresNormales" width="50%">
-        <thead>
-            <tr>
-                <th>Índice de masa corporal</th>
-                <th>Categoría</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    < 18.5</td>
-                <td>Bajo peso</td>
-            </tr>
-            <tr>
-                <td>Entre 18.5 y 24.9</td>
-                <td>Peso normal</td>
-            </tr>
-            <tr>
-                <td>Entre 25 y 29.9</td>
-                <td>Sobrepeso</td>
-            </tr>
-            <tr>
-                <td>Entre 30 y 34.9</td>
-                <td>Obesidad grado I</td>
-            </tr>
-            <tr>
-                <td>Entre 35 y 39.9</td>
-                <td>Obesidad grado II</td>
-            </tr>
-            <tr>
-                <td>Entre 40 y 49.9</td>
-                <td>Obesidad grado III</td>
-            </tr>
-        </tbody>
-    </table>`
+        <div id="resultadoIMCDesc"> Esto indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.</div>`
     nodoResultado.appendChild(resultadoIMC)
 }
 
@@ -177,7 +144,7 @@ function cargarTablaIndices() {
     table.setAttribute("class", "table table-bordered")
     table.setAttribute("id", "listaIndices")
     table.innerHTML =
-        `<thead>
+        `<thead id="tableHeader">
         <tr>
             <th>Fecha</th>
             <th>Indice de Masa Corporal</th>

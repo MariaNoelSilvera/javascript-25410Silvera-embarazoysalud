@@ -57,5 +57,4 @@ function mostrarBotonRecalcular() {
     const bbody = document.createElement("bbody")
     recalcularBtn.appendChild(bbody)
     nodoBoton.appendChild(recalcularBtn)
-    recalcularBtn.onclick = () => borrarResultado()
 }
