@@ -1,7 +1,7 @@
 function mostrarFecha(objFecha) {
     mes = objFecha.getMonth() + 1
     mes = (mes < 10) ? "0" + mes : mes
-    dia = objFecha.getDate()
+    dia = objFecha.getDate() + 1
     dia = (dia < 10) ? "0" + dia : dia
     año = objFecha.getYear()
     if (año < 2000) año += 1900
@@ -18,13 +18,13 @@ function calculadoraEmbarazo(form) {
     fum.setTime(fumIngresada.getTime())
     document.getElementById("mensaje-error").innerHTML = ""
 
-    ovulacion.setTime(fum.getTime() + (28 * 86400000) - (13 * 86400000))
+    ovulacion.setTime(fum.getTime() + (28 * 86400000) - (14 * 86400000))
     form.concepcion.value = mostrarFecha(ovulacion)
 
     fechaParto.setTime(ovulacion.getTime() + 266 * 86400000)
     form.fechaParto.value = mostrarFecha(fechaParto)
 
-    var tiempoGestacion = 15 + 266 - ((fechaParto - hoy) / 86400000)
+    var tiempoGestacion = 14 + 266 - ((fechaParto - hoy) / 86400000)
     semanas = parseInt(tiempoGestacion / 7)
     dias = Math.floor(tiempoGestacion % 7)
     tiempoGestacion = semanas + " semana" + (semanas > 1 ? "s" : "") + ", " + dias + " días"
