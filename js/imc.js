@@ -105,12 +105,12 @@ function mostrarResultadoDesc(indice, resultado) {
         <div id="resultadoIMC"> Tu IMC es ${indice}.</div>
         <div id="resultadoIMCDesc"> Esto indica que tu peso est\u00E1 en la categor\u00EDa de ${resultado} para adultos de tu misma estatura.</div>
         <table class="table table-striped" id="valoresNormales" width="50%">
-        <tbody>
+        <thead>
             <tr>
                 <th>Índice de masa corporal</th>
                 <th>Categoría</th>
             </tr>
-        </tbody>
+        </thead>
         <tbody>
             <tr>
                 <td>
@@ -139,8 +139,6 @@ function mostrarResultadoDesc(indice, resultado) {
             </tr>
         </tbody>
     </table>`
-    const rbody = document.createElement("rbody")
-    resultadoIMC.appendChild(rbody)
     nodoResultado.appendChild(resultadoIMC)
 }
 
@@ -156,9 +154,6 @@ function mostrarError(tipo) {
     tipo === "empty" ? errorMessage.innerHTML =
         `<span id="error">Error! Debes completar todos los campos</span>` : errorMessage.innerHTML =
     `<span id="error-fecha">Error! La fecha no puede ser mayor a hoy</span>`
-
-    const ebody = document.createElement("ebody")
-    errorMessage.appendChild(ebody)
     nodoError.appendChild(errorMessage)
 }
 
@@ -171,9 +166,6 @@ function mostrarBotonRecalcular() {
         `<button type="reset" class="btn btn-info btn-lg">
         Volver a calcular
     </button>`
-
-    const bbody = document.createElement("bbody")
-    recalcularBtn.appendChild(bbody)
     nodoBoton.appendChild(recalcularBtn)
     recalcularBtn.onclick = () => borrarResultado()
 }
@@ -185,12 +177,14 @@ function cargarTablaIndices() {
     table.setAttribute("class", "table table-bordered")
     table.setAttribute("id", "listaIndices")
     table.innerHTML =
-        `<tr>
+        `<thead>
+        <tr>
             <th>Fecha</th>
             <th>Indice de Masa Corporal</th>
             <th>Resultado</th>
             <th>Acciones</th>
-        </tr>`
+        </tr>
+        </thead>`
     const tbody = document.createElement("tbody")
     for (const indice of listadoDeIMC) {
         const tr = document.createElement("tr")

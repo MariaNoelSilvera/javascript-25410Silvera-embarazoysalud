@@ -75,9 +75,6 @@ function mostrarError(tipo) {
     tipo === "empty" ? errorMessage.innerHTML =
         `<span id="error">Error! Debes ingresar una fecha.</span>` : errorMessage.innerHTML =
     `<span id="error-fecha">Error! La fecha no puede ser mayor a hoy</span>`
-
-    const ebody = document.createElement("ebody")
-    errorMessage.appendChild(ebody)
     nodoError.appendChild(errorMessage)
 }
 
@@ -90,9 +87,6 @@ function mostrarBotonLimpiar() {
         `<button type="reset" class="btn btn-info btn-lg">
         Limpiar formulario
     </button>`
-
-    const bbody = document.createElement("bbody")
-    recalcularBtn.appendChild(bbody)
     nodoBoton.appendChild(recalcularBtn)
 }
 
@@ -104,9 +98,6 @@ function mostrarBotonImprimir() {
     imprimirBtn.innerHTML =
         `<button type="button" class="btn btn-info btn-lg"
         onclick="javascript:window.print()">Imprimir</button>`
-
-    const ibody = document.createElement("ibody")
-    imprimirBtn.appendChild(ibody)
     nodoBotonImprimir.appendChild(imprimirBtn)
 }
 
@@ -114,20 +105,19 @@ function cargarTablaResultadosGlicemia() {
     const nodoResultados = document.getElementById("divRegistrosGlicemia")
     nodoResultados.innerHTML = ""
     const table = document.createElement("table")
-    table.setAttribute("class", "table table-bordered")
+    table.setAttribute("class", "table table-responsive table-bordered")
     table.setAttribute("id", "listaRegistros")
     table.innerHTML =
-        `
-    <tr>
-    <th colspan=1>Fecha</th>
-              <th colspan=2>Desayuno</th>
-                  <th colspan=2>Almuerzo</th>
-                  <th colspan=2>Merienda</th>
-                  <th colspan=2>Cena</th>
-                  <th colspan=1>Acciones</th>
-          </tr>
-          
-               `
+        `<thead>
+            <tr>
+                <th colspan=1>Fecha </th>
+                <th colspan=2>Desayuno (mg/dl)</th>
+                <th colspan=2>Almuerzo (mg/dl)</th>
+                <th colspan=2>Merienda (mg/dl)</th>
+                <th colspan=2>Cena (mg/dl)</th>
+                <th colspan=1>Acciones</th>
+             </tr>
+          </thead>`
     const tbody = document.createElement("tbody")
     for (const registro of listadoDeValores) {
         const tr = document.createElement("tr")
@@ -159,8 +149,8 @@ function cargarTablaResultadosGlicemia() {
 function borrarRegistro(id) {
     let listadoDeRegistros = JSON.parse(localStorage.getItem("ArrayDeValores"))
     let registroAEliminar = listadoDeRegistros.findIndex(element => element.id === id)
-    listadoDeIndices.splice(registroAEliminar, 1)
     listadoDeRegistros.splice(registroAEliminar, 1)
+    listadoDeValores.splice(registroAEliminar, 1)
     localStorage.setItem("ArrayDeValores", JSON.stringify(listadoDeRegistros))
     let lineaRegistro = document.getElementById(`fila${id}`)
     lineaRegistro.remove()

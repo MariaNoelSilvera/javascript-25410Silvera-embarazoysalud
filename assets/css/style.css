@@ -967,6 +967,7 @@ section {
   margin-top: 10px;
   font-size: large;
   font-weight: bold;
+  color: rgb(208, 54, 54);
 }
 
 .inputLabel {
@@ -987,6 +988,20 @@ section {
 
 #resultadoPesoIdeal, #resultadoIMC  {
   font-size: 20px;
+}
+
+#calendarioChino, #calcOvulacion {
+  background-color: rgb(247, 244, 244);
+  color:back;
+}
+
+#calendarioChino:hover h4 a, #calcOvulacion:hover h4 a, #calendarioChino:hover p, #calcOvulacion:hover p{
+  color:grey;
+}
+
+#soon {
+  margin-top: 20px;
+  font-style: oblique;
 }
 
 #resultadoPesoIdealDesc, #resultadoIMCDesc {

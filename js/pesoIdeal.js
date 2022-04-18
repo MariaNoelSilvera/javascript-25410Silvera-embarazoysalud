@@ -145,25 +145,26 @@ function cargarTablaIndices() {
     table.setAttribute("class", "table table-bordered")
     table.innerHTML =
         `<tr>
+              <th>Fecha</th>
+              <th>Semanas</th>
               <th>Peso Anterior</th>
               <th>Peso Actual</th>
-              <th>Semanas</th>
-              <th>Indice de masa corporal</th>
               <th>Peso ganado</th>
+              <th>Indice de masa corporal</th>
               <th>Aumento ideal</th>
-              <th>Fecha</th>
               <th>Acciones</th>
             </tr>`
     const tbody = document.createElement("tbody")
     for (const indice of listadoDeIMC) {
         const tr = document.createElement("tr")
-        tr.innerHTML = `<td>${indice.pesoAntes} kg</td>
-                        <td>${indice.pesoActual} kg</td>
-                        <td>${indice.semana}</td>
-                      <td>${indice.indice}</td>
-                      <td>${indice.pesoGanado} kg</td>
-                      <td>${indice.resultado}</td>
-                      <td>${indice.fecha}</td>
+        tr.innerHTML = `
+        <td>${indice.fecha}</td>
+        <td>${indice.semana}</td>
+        <td>${indice.pesoAntes} kg</td>
+        <td>${indice.pesoActual} kg</td>
+        <td>${indice.pesoGanado} kg</td>                
+        <td>${indice.indice}</td>              
+        <td>${indice.resultado}</td>
                       <td>
                         <button id="btnBorrar${indice.id}" class="btn btn-danger" >
                             Borrar
@@ -200,12 +201,12 @@ function mostrarResultadoPeso(pesoGanado, resultado) {
         <div id="resultadoPesoIdeal"> Has ganado: ${pesoGanado} kgs.</div>
         <div id="resultadoPesoIdealDesc"> El aumento ideal de peso está entre ${resultado}, de acuerdo a tu Indice de Masa Corporal.</div>
         <table class="table table-striped" id="valoresNormales">
-        <tbody>
+        <thead>
             <tr>
                 <th>Índice de masa corporal</th>
                 <th>Aumento ideal</th>
             </tr>
-        </tbody>
+        </thead>
         <tbody>
             <tr>
                 <td>
@@ -226,8 +227,6 @@ function mostrarResultadoPeso(pesoGanado, resultado) {
             </tr>
         </tbody>
     </table>`
-    const rbody = document.createElement("rbody")
-    resultadoPeso.appendChild(rbody)
     nodoResultado.appendChild(resultadoPeso)
 }
 
